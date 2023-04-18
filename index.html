@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kontakte</title>
-    <script defer src="./build/bundle.js"></script>
     <link rel="stylesheet" href="./build/style.css">
 </head>
 
@@ -27,7 +26,9 @@
                 <h3>Address Bookshelf</h3>
             </aside>
             <aside class="books">
-                <button class="element-bookshelf ps20">Default Book</button>
+                <div class="books-dyn">
+                    <button class="element-bookshelf book ps20">Default Book</button>
+                </div>
                 <button class="element-bookshelf btn-bookdelete ps20" disabled>Delete book</button>
                 <button class="element-bookshelf btn-bookcreate ps20">Create book</button>
             </aside>
@@ -80,4 +81,13 @@
         </section>
     </main>
 </body>
+<section class="book-naming-popup invisible">
+    <label for="addrname">Please name the new address book.</label>
+    <input type="text" name="addrname" id="addrname">
+    <div class="popup-buttons">
+        <button class="btn-pp-cancel btn-control">Cancel</button>
+        <button class="btn-pp-save btn-control" disabled>Save</button>
+    </div>
+</section>
 </html>
+<script defer src="./build/bundle.js"></script>
