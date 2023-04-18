@@ -3,7 +3,7 @@
 * returns true if everything worked out fine, if not, there will be an error displayed as an alert
 */
 import {createAddressbook} from "./storage";
-import {closeAbPopUp, openAbPopUp} from "./buttonlogic";
+import {closeAbPopUp, deleteSelectedBook, openAbPopUp} from "./buttonlogic";
 
 export function createEventListeners() : boolean {
     try {
@@ -19,26 +19,18 @@ export function createEventListeners() : boolean {
         }
         /*
         This function manages the save button on the popup, it uses a check for an empty string to make sure we
-        do NOT emit an exception while saving into LocalStorage with an empty key
+        do not save into LocalStorage with an empty key
          */
         let ppinput : HTMLInputElement | null = document.querySelector("#addrname")
         if (ppinput !== null) {
             ppinput.addEventListener("input", ()=>{
                 let btn : HTMLButtonElement | null = document.querySelector(".btn-pp-save")
                 if (ppinput !== null && btn !== null) {
-                    btn.disabled = ppinput.value === ""; //shorthand, button is disabled when the value is blank.
+                    btn.disabled = ppinput.value == ""; //shorthand, button is disabled when the value is blank.
                 }
             })
         }
-        /*
-        Basic logic, if the cancel button is pressed, we close the popup without further action
-         */
-        let ppcancel : HTMLButtonElement | null = document.querySelector(".btn-pp-cancel")
-        if (ppcancel !== null) {
-            ppcancel.addEventListener("click", ()=>{
-                closeAbPopUp();
-            })
-        }
+
         /*
         The popup save button, we first create the book based on the input, then hide the popup again
          */
@@ -49,9 +41,37 @@ export function createEventListeners() : boolean {
                 if (ppinput !== null) {
                     createAddressbook(ppinput.value);
                     closeAbPopUp();
+                    if (ppsave !== null) {
+                        ppsave.disabled = true;
+                    }
+                    ppinput.value = "";
                 }
             })
         }
+        /*
+        Basic logic, if the cancel button is pressed, we close the popup without further action
+         */
+        let ppcancel : HTMLButtonElement | null = document.querySelector(".btn-pp-cancel")
+        if (ppcancel !== null) {
+            ppcancel.addEventListener("click", ()=>{
+                closeAbPopUp();
+                if (ppinput !== null) {
+                    ppinput.value = "";
+                }
+                if (ppsave !== null) {
+                    ppsave.disabled = true;
+                }
+            })
+        }
+        /*
+        For deletion, we first need to enable a select functionality, which has to be refreshed on a regular basis
+        This is implemented in reactivity, now we can add the deletion command
+        */
+        let delbt : HTMLButtonElement | null = document.querySelector(".btn-bookdelete")
+        if (delbt !== null) {
+            delbt.addEventListener("click", deleteSelectedBook)
+        }
+
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.
         console.error(e.message)
         return false
