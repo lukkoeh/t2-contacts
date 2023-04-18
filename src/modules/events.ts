@@ -71,6 +71,14 @@ export function createEventListeners() : boolean {
         if (delbt !== null) {
             delbt.addEventListener("click", deleteSelectedBook)
         }
+        /*
+        Create an Eventlistener for the create button on the contact list
+        */
+        let concreate: HTMLButtonElement | null = document.querySelector(".btn-create-contact")
+        if (concreate !== null) {
+            concreate.addEventListener("click", ()=> {
+            })
+        }
 
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.
         console.error(e.message)

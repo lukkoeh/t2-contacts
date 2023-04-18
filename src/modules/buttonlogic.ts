@@ -4,6 +4,7 @@ If there is no special need to keep the functions inside the events module, they
  */
 import {getSelectedItem} from "./reactivity";
 import {deleteAddressbookByKey} from "./storage";
+import {Contact} from "./structs";
 
 /*
 A function that opens up the Addressbook creation dialogue
@@ -55,7 +56,7 @@ export function deleteSelectedBook(this: any) : void { //any = instance of delet
         let key = book2del.innerHTML;
         deleteAddressbookByKey(key);
         if (book2del.parentNode !== null) {
-            book2del.parentNode.removeChild(book2del);
+            book2del.parentNode.removeChild(book2del); //It quite literally deletes itself XD
         }
         if (localStorage.length === 0) {
             this.disabled = true;
@@ -63,5 +64,28 @@ export function deleteSelectedBook(this: any) : void { //any = instance of delet
     }
     else {
         console.error("There was an error while finding the correct book, you may reselect or reload.")
+    }
+}
+/*
+This function allows one to print a contact into the contacts-view, without implementing the logic multiple times
+But, it only takes a Contact Struct.
+ */
+export function spawnContact(print : Contact) {
+    const container : HTMLElement | null = document.querySelector(".contact-contain")
+    if (container !== null) {
+        let element = document.createElement('aside')
+        element.classList.add("contact-item")
+        element.classList.add("ps30")
+        let innerp = document.createElement("p")
+        innerp.innerText = print.firstname + " " + print.lastname
+        element.appendChild(innerp)
+        let innerp2 = document.createElement("p")
+        if (print.email !== "") {
+            innerp2.innerText = print.email
+        } else {
+            innerp2.innerText = print.phone
+        }
+        element.appendChild(innerp2)
+        container.appendChild(element)
     }
 }
