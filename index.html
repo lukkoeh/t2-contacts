@@ -1,16 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Kontakte</title>
     <script defer src="./build/bundle.js"></script>
+    <link rel="stylesheet" href="./build/style.css">
 </head>
 
 <body>
-    <my-beispiel></my-beispiel>
-    <input type="text" id="myInput" />
+    <header>
+        <nav class="navbar">
+            <div class="nav-list">
+                <a href="#" class="heading">T2-Contacts</a>
+                <section class="btn-nav-container">
+                    <button class="btn-nav btn-settings">Settings</button>
+                    <button class="btn-nav btn-settings">About</button>
+                </section>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="sidebar w15">
+            <aside class="contact-controls ps20 bookshelf">
+                <h3>Address Bookshelf</h3>
+            </aside>
+            <aside class="books">
+                <button class="element-bookshelf ps20">Default Book</button>
+                <button class="element-bookshelf btn-bookdelete ps20" disabled>Delete book</button>
+                <button class="element-bookshelf btn-bookcreate ps20">Create book</button>
+            </aside>
+        </section>
+        <section class="contactlist w25">
+            <aside class="contact-controls w25 ps20 sticktop">
+                <button class="btn-control">Create</button>
+                <button class="btn-control" disabled>Edit</button>
+                <button class="btn-control" disabled>Delete</button>
+            </aside>
+            <aside class="contact-item ps30">
+                <p>Lukas Köhler</p>
+                <p>+4915120959731</p>
+            </aside>
+            <aside class="contact-item ps30">
+                <p>Daniel Vollmer</p>
+                <p>info@d-vollmer.de</p>
+            </aside>
+        </section>
+        <section class="editarea w60">
+            <aside class="placeholder w100 invisible">
+                <p>Open or create a Contact to start</p>
+            </aside>
+            <aside class="contact-editor w100 p20">
+                <p class="action-create-headline">Create Contact</p>
+                <p class="action-edit-headline invisible">Edit Contact</p>
+                <div class="ce-inputs w100">
+                    <div class="inputgroup w100">
+                        <label for="fname">First name:</label>
+                        <input type="text" id="fname" name="fname">
+                    </div>
+                    <div class="inputgroup w100">
+                        <label for="lname">Last name:</label>
+                        <input type="text" id="lname" name="lname">
+                    </div>
+                    <div class="inputgroup w100">
+                        <label for="email">E-Mail:</label>
+                        <input type="text" id="email" name="email">
+                    </div>
+                    <div class="inputgroup w100">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" name="phone">
+                    </div>
+                </div>
+                <div class="buttongroup-editor pl20">
+                    <button class="btn-cancel btn-control">Cancel</button>
+                    <button class="btn-save btn-control" disabled>Save</button>
+                </div>
+            </aside>
+        </section>
+    </main>
 </body>
-
 </html>

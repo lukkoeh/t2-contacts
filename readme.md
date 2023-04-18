@@ -26,4 +26,5 @@ Type tsc to javascript
 Link your compiled bundle.js into your HTML-Files.
 
 
-
+## Libraries used
+- MaterializeCSS https://materializecss.com/
