@@ -5,13 +5,18 @@ If there is no special need to keep the functions inside the events module, they
 import {getSelectedItem} from "./reactivity";
 import {deleteAddressbookByKey} from "./storage";
 
+/*
+A function that opens up the Addressbook creation dialogue
+ */
 export function openAbPopUp() : void {
     const popup : HTMLDivElement | null = document.querySelector(".book-naming-popup")
     if (popup !== null) {
         popup.classList.remove("invisible");
     }
 }
-
+/*
+The respective function to close the popup
+ */
 export function closeAbPopUp() : void {
     const popup : HTMLDivElement | null = document.querySelector(".book-naming-popup")
     if (popup !== null) {
@@ -19,6 +24,10 @@ export function closeAbPopUp() : void {
     }
 }
 
+/*
+This function handles the selection process. Essentially, the clicked item assigns itself as selected
+and removes all other instances of the selected class from other items.
+ */
 export function handleBookSelect(this : any) : void { /* Any is used because of this not being typed. */
     this.classList.add("selected")
     let btdel : HTMLButtonElement | null = document.querySelector(".btn-bookdelete")
@@ -35,6 +44,11 @@ export function handleBookSelect(this : any) : void { /* Any is used because of 
     }
 }
 
+/*
+A function that deletes the book that is currently selected by the user. It utilizes the
+getSelected() function to find the correct entry and then calls the storage management
+to finally delete the entry via the localStorage API
+ */
 export function deleteSelectedBook(this: any) : void { //any = instance of delete button
     let book2del : HTMLButtonElement | boolean = getSelectedItem()
     if (typeof book2del !== "boolean") {

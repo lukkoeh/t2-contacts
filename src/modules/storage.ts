@@ -18,7 +18,9 @@ export function createAddressbook(name: string) : boolean {
     restoreReactivityAb()
     return true;
 }
-
+/*
+This function takes a key in form of a string and deletes the respective Storage entry.
+ */
 export function deleteAddressbookByKey(key: string) : void {
     localStorage.removeItem(key);
 }

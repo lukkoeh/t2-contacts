@@ -44,6 +44,9 @@ export function somethingSelected() : boolean {
     return false;
 }
 
+/*
+A function to get the currently selected item.
+ */
 export function getSelectedItem() : HTMLButtonElement | boolean {
     let elements : NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".book");
     for (let i = 0; i<elements.length; i++) {
