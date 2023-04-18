@@ -1,3 +1,7 @@
+/*
+This file contains functions to update various components of the site to mimic reactivity.
+Those functions are made to be called as often as the situation needs them to be called.
+ */
 export function updateBookShelf() : void {
     const container : Element | null = document.querySelector(".books-dyn");
     if (container !== null) {

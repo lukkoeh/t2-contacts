@@ -3,6 +3,9 @@
 */
 import {updateBookShelf} from "./reactivity";
 
+/*
+Creates an Addressbook in Localstorage with the name specified in its parameter and an empty JSON array.
+ */
 export function createAddressbook(name: string) : boolean {
     /* First, check if the desired item already exists */
     if (localStorage.getItem(name) !== null) {
