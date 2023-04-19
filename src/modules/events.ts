@@ -3,7 +3,7 @@
 * returns true if everything worked out fine, if not, there will be an error displayed as an alert
 */
 import {createAddressbook, createContact} from "./storage";
-import {closeAbPopUp, deleteSelectedBook, openAbPopUp, openCreationDialog} from "./buttonlogic";
+import {closeAbPopUp, closeCreationDialog, deleteSelectedBook, openAbPopUp, openCreationDialog} from "./buttonlogic";
 import {getSelectedItem} from "./reactivity";
 import {Contact} from "./structs";
 
@@ -21,7 +21,7 @@ export function createEventListeners() : boolean {
         }
         /*
         This function manages the save button on the popup, it uses a check for an empty string to make sure we
-        do not save into LocalStorage with an empty key
+        do not save into LocalStorage with an empty key (although this would be possible, but it makes no sense)
          */
         let ppinput : HTMLInputElement | null = document.querySelector("#addrname")
         if (ppinput !== null) {
@@ -120,8 +120,18 @@ export function createEventListeners() : boolean {
                         return
                     } else {
                         createContact(con, element.innerText);
+                        closeCreationDialog();
                     }
                 }
+            })
+        }
+        /*
+        Add the cancel button on the form to call the closeCreationDialog() function.
+         */
+        let clbtn : HTMLButtonElement | null = document.querySelector(".btn-cancel")
+        if (clbtn !== null) {
+            clbtn.addEventListener("click", () : void => {
+                closeCreationDialog()
             })
         }
 

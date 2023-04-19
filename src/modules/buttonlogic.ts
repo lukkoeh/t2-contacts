@@ -90,7 +90,10 @@ export function spawnContact(print : Contact) {
         container.appendChild(element)
     }
 }
-
+/*
+Changes the visibility of the contact creation / edit form and in return hides all other
+forms from the edit area
+ */
 export function openCreationDialog() : void {
     let dialog : HTMLElement | null = document.querySelector(".contact-editor");
     let placeholder : HTMLElement | null = document.querySelector(".placeholder");
@@ -101,5 +104,22 @@ export function openCreationDialog() : void {
         dialog.classList.remove("invisible")
         headlineedit.classList.add("invisible")
         headlinecreate.classList.remove("invisible")
+    }
+}
+/*
+Function to be used to hide the edit or create form respectively, does NOT modify
+the headlines. Re-enables the placeholder
+ */
+export function closeCreationDialog() : void {
+    let dialog : HTMLElement | null = document.querySelector(".contact-editor")
+    let placeholder : HTMLElement | null = document.querySelector(".placeholder")
+    let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
+    if (dialog !== null && placeholder !== null && inputgroup !== null) {
+        //first, switch the invisible class
+        dialog.classList.add("invisible")
+        placeholder.classList.remove("invisible")
+        for (let i : number = 0; i<inputgroup.length; i++) {
+            inputgroup[i].value = ""; //clear values
+        }
     }
 }
