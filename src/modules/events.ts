@@ -3,7 +3,14 @@
 * returns true if everything worked out fine, if not, there will be an error displayed as an alert
 */
 import {createAddressbook, createContact} from "./storage";
-import {closeAbPopUp, closeCreationDialog, deleteSelectedBook, openAbPopUp, openCreationDialog} from "./buttonlogic";
+import {
+    closeAbPopUp,
+    closeCreationDialog,
+    deleteSelectedBook,
+    deleteSelectedContacts,
+    openAbPopUp,
+    openCreationDialog
+} from "./buttonlogic";
 import {getSelectedItem} from "./reactivity";
 import {Contact} from "./structs";
 
@@ -109,6 +116,7 @@ export function createEventListeners() : boolean {
             btnsavecontact.addEventListener("click", () : void=>{
                 if (inputgroup) {
                     let con: Contact = {
+                        id: 0, //temporary, gets set by storage unit
                         firstname: inputgroup[0].value,
                         lastname: inputgroup[1].value,
                         phone: inputgroup[2].value,
@@ -134,6 +142,15 @@ export function createEventListeners() : boolean {
                 closeCreationDialog()
             })
         }
+        /*
+        Add the contact delete button
+         */
+        let delbtnc : HTMLButtonElement | null = document.querySelector(".btn-delete-contact")
+        if (delbtnc !== null) {
+            delbtnc.addEventListener("click", deleteSelectedContacts)
+        }
+
+
 
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.
         console.error(e.message)

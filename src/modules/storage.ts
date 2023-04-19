@@ -33,24 +33,24 @@ export function createContact(newcontact : Contact, storagekey: string) : void {
     let storage : string | null = localStorage.getItem(storagekey)
     if (storage !== null) {
         let json = JSON.parse(storage)
-        let jsonadd = {firstname: newcontact.firstname, lastname: newcontact.lastname, phone: newcontact.phone, email: newcontact.email}
+        let jsonadd = {id: json.length, firstname: newcontact.firstname, lastname: newcontact.lastname, phone: newcontact.phone, email: newcontact.email}
         json.push(jsonadd)
         let newstorage : string = JSON.stringify(json)
         localStorage.setItem(storagekey, newstorage)
-        printJsonAb(storagekey)
+        fixIds(storagekey)
     }
 }
 /*
 The respective function that reads the contacts out of the localStorage and deletes it.
 Uses full dataset comparison to always delete the correct entry without needing to implement IDs.
  */
-export function deleteContact(contact : Contact, storagekey: string) : void {
+export function deleteContact(id: number, storagekey: string) : void {
     let storage : string | null = localStorage.getItem(storagekey)
     if (storage !== null) {
         let json : any = JSON.parse(storage)
         for (let i : number = 0; i<json.length; i++) {
-            if (json[i].firstname === contact.firstname && json[i].lastname === contact.lastname && json[i].email === contact.email && json[i].phone === contact.phone) {
-                json.splice(i,i)
+            if (json[i].id === id) {
+                json.splice(i,1)
                 localStorage.setItem(storagekey,JSON.stringify(json))
                 return
             }
@@ -61,5 +61,20 @@ export function deleteContact(contact : Contact, storagekey: string) : void {
     else {
         console.error("The requested localStorage Item was not accessible. As a developer you should check the code.")
         return
+    }
+}
+/*
+Every time, a contact is created or deleted, the fixIds function fixes up the order of the IDs in the array
+and re renders the whole Addressbook with the correct ids
+ */
+export function fixIds(storagekey: string) : void {
+    let storage : string | null = localStorage.getItem(storagekey)
+    if (storage !== null) {
+        let json = JSON.parse(storage)
+        for (let i : number = 0; i<json.length; i++) {
+            json[i].id = i;
+        }
+        localStorage.setItem(storagekey, JSON.stringify(json))
+        printJsonAb(storagekey)
     }
 }

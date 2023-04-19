@@ -2,8 +2,8 @@
 This file contains functions which are outsourced from the events.ts module to keep the code more readable.
 If there is no special need to keep the functions inside the events module, they are here.
  */
-import {getSelectedItem, printJsonAb} from "./reactivity";
-import {deleteAddressbookByKey} from "./storage";
+import {getSelectedItem, printJsonAb, restoreReactivityAb} from "./reactivity";
+import {deleteAddressbookByKey, deleteContact, fixIds} from "./storage";
 import {Contact} from "./structs";
 
 /*
@@ -75,6 +75,7 @@ export function spawnContact(print : Contact) {
     const container : HTMLElement | null = document.querySelector(".contact-contain")
     if (container !== null) {
         let element = document.createElement('aside')
+        element.setAttribute("contactid", print.id.toString())
         element.classList.add("contact-item")
         element.classList.add("ps30")
         let innerp = document.createElement("p")
@@ -121,5 +122,27 @@ export function closeCreationDialog() : void {
         for (let i : number = 0; i<inputgroup.length; i++) {
             inputgroup[i].value = ""; //clear values
         }
+    }
+}
+
+/*
+We need to prevent the fixIds() function from executing until all storage operations are done.
+That is why we toggle it here instead of in the storage module itself. We create a list of all items
+that should be deleted, then we cycle through, extract the IDs and delete the corresponding entries.
+ */
+export function deleteSelectedContacts(this: any) : void {
+    let selectedab : HTMLButtonElement | null = document.querySelector(".selected")
+    if (selectedab !== null) {
+        let storagekey : string = selectedab.innerText
+        let it2d : NodeListOf<HTMLElement> | null = document.querySelectorAll(".multiselect")
+        for (let i : number = 0; i< it2d.length; i++) {
+            let idstring : string | null = it2d[i].getAttribute("contactid")
+            if (idstring !== null) {
+                let newid : number = Number.parseInt(idstring)
+                deleteContact(newid, storagekey)
+            }
+        }
+        fixIds(storagekey)
+        restoreReactivityAb()
     }
 }
