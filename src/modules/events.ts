@@ -2,15 +2,17 @@
 * central function to add all EventListeners to Buttons and other objects
 * returns true if everything worked out fine, if not, there will be an error displayed as an alert
 */
-import {createAddressbook} from "./storage";
-import {closeAbPopUp, deleteSelectedBook, openAbPopUp} from "./buttonlogic";
+import {createAddressbook, createContact} from "./storage";
+import {closeAbPopUp, deleteSelectedBook, openAbPopUp, openCreationDialog} from "./buttonlogic";
+import {getSelectedItem} from "./reactivity";
+import {Contact} from "./structs";
 
 export function createEventListeners() : boolean {
     try {
         /* Eventlisteners here */
         /*
         Handle the Create Book Button, open the popup and collect the name data to finally create the book.
-         */
+        */
         let createbt : HTMLButtonElement | null = document.querySelector(".btn-bookcreate")
         if (createbt !== null) {
             createbt.addEventListener("click", ()=>{
@@ -77,6 +79,49 @@ export function createEventListeners() : boolean {
         let concreate: HTMLButtonElement | null = document.querySelector(".btn-create-contact")
         if (concreate !== null) {
             concreate.addEventListener("click", ()=> {
+                openCreationDialog()
+            })
+        }
+        /*
+        Define the logic for the contact creation and edit form. First as well as last name along with ONE
+        contact option. One contact form may be omitted.
+         */
+        let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
+        let svbt : HTMLButtonElement | null = document.querySelector(".btn-save")
+        if (inputgroup !== null) {
+            for (let i: number = 0; i<inputgroup.length; i++) {
+                inputgroup[i].addEventListener("input", ():void =>{
+                    if (inputgroup!== null && svbt !== null && (inputgroup[0].value !== "" && inputgroup[1].value !== "" && (inputgroup[2].value !== "" || inputgroup[3].value !== ""))) {
+                        svbt.disabled = false
+                    }
+                    else if (svbt !== null) {
+                        svbt.disabled = true
+                    }
+                })
+            }
+        }
+
+        /*
+        Create the function that handles the save process on the contact create or edit form
+         */
+        let btnsavecontact : HTMLButtonElement | null = document.querySelector(".btn-save")
+        if (btnsavecontact !== null) {
+            btnsavecontact.addEventListener("click", () : void=>{
+                if (inputgroup) {
+                    let con: Contact = {
+                        firstname: inputgroup[0].value,
+                        lastname: inputgroup[1].value,
+                        phone: inputgroup[2].value,
+                        email: inputgroup[3].value
+                    }
+                    let element : HTMLButtonElement | boolean = getSelectedItem();
+                    if (typeof element === "boolean") {
+                        alert("please select an addressbook.")
+                        return
+                    } else {
+                        createContact(con, element.innerText);
+                    }
+                }
             })
         }
 

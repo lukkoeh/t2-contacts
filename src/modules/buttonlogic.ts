@@ -2,7 +2,7 @@
 This file contains functions which are outsourced from the events.ts module to keep the code more readable.
 If there is no special need to keep the functions inside the events module, they are here.
  */
-import {getSelectedItem} from "./reactivity";
+import {getSelectedItem, printJsonAb} from "./reactivity";
 import {deleteAddressbookByKey} from "./storage";
 import {Contact} from "./structs";
 
@@ -31,6 +31,7 @@ and removes all other instances of the selected class from other items.
  */
 export function handleBookSelect(this : any) : void { /* Any is used because of this not being typed. */
     this.classList.add("selected")
+    printJsonAb(this.innerText);
     let btdel : HTMLButtonElement | null = document.querySelector(".btn-bookdelete")
     if (btdel !== null) {
         btdel.disabled = false;
@@ -87,5 +88,18 @@ export function spawnContact(print : Contact) {
         }
         element.appendChild(innerp2)
         container.appendChild(element)
+    }
+}
+
+export function openCreationDialog() : void {
+    let dialog : HTMLElement | null = document.querySelector(".contact-editor");
+    let placeholder : HTMLElement | null = document.querySelector(".placeholder");
+    let headlinecreate : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
+    let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
+    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null) {
+        placeholder.classList.add("invisible")
+        dialog.classList.remove("invisible")
+        headlineedit.classList.add("invisible")
+        headlinecreate.classList.remove("invisible")
     }
 }
