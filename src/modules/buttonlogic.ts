@@ -197,3 +197,46 @@ export function openEditDialog() : void {
         }
     }
 }
+
+/*
+View contact doubleclick action
+ */
+export function openViewer(this: any) : void {
+    let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
+    let placeholder : HTMLElement | null = document.querySelector(".placeholder")
+    let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
+    if (viewer !== null && placeholder !== null && contacteditor !== null) {
+        viewer.classList.remove("invisible")
+        placeholder.classList.add("invisible")
+        contacteditor.classList.add("invisible")
+    }
+    let storage : HTMLButtonElement | boolean = getSelectedItem();
+    if (typeof storage === "boolean") {
+        console.error("Error while getting selected item for viewer")
+    } else {
+        let idstring : string | null = this.getAttribute("contactid")
+        let storagekey : string = storage.innerText
+        if (idstring !== null && storagekey !== null) {
+            let id : number = Number.parseInt(idstring)
+            let contactdata : Contact | boolean = getContactById(id,storagekey)
+            let spans : NodeListOf<HTMLSpanElement> | null = document.querySelectorAll(".view-label")
+            if (spans !== null && typeof contactdata !== "boolean") {
+                spans[0].innerText = contactdata.firstname
+                spans[1].innerText = contactdata.lastname
+                spans[2].innerText = contactdata.email
+                spans[3].innerText = contactdata.phone
+            }
+        }
+    }
+}
+
+export function closeViewer() : void {
+    let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
+    let placeholder : HTMLElement | null = document.querySelector(".placeholder")
+    let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
+    if (viewer !== null && placeholder !== null && contacteditor !== null) {
+        viewer.classList.add("invisible")
+        placeholder.classList.remove("invisible")
+        contacteditor.classList.add("invisible")
+    }
+}

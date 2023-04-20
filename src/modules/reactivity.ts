@@ -2,7 +2,7 @@
 This file contains functions to update various components of the site to mimic reactivity.
 Those functions are made to be called as often as the situation needs them to be called.
  */
-import {handleBookSelect, spawnContact} from "./buttonlogic";
+import {handleBookSelect, openViewer, spawnContact} from "./buttonlogic";
 import {Contact} from "./structs";
 
 export function updateBookShelf() : void {
@@ -34,6 +34,7 @@ export function restoreReactivityAb() : void {
     if (contacts !== null) {
         for (let i: number = 0; i<contacts.length; i++) {
             contacts[i].addEventListener("click", toggleMultiSelect)
+            contacts[i].addEventListener("dblclick", openViewer)
         }
     }
     handleButtonDisable()

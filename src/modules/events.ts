@@ -5,7 +5,7 @@
 import {createAddressbook, createContact, editContact} from "./storage";
 import {
     closeAbPopUp,
-    closeCreationDialog,
+    closeCreationDialog, closeViewer,
     deleteSelectedBook,
     deleteSelectedContacts,
     openAbPopUp,
@@ -188,8 +188,12 @@ export function createEventListeners() : boolean {
                 }
             })
         }
-
-
+        let closeviewbtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
+        if (closeviewbtn !== null) {
+            closeviewbtn.addEventListener("click", () : void=>{
+                closeViewer()
+            })
+        }
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.
         console.error(e.message)
         return false
