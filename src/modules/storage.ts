@@ -78,3 +78,43 @@ export function fixIds(storagekey: string) : void {
         printJsonAb(storagekey)
     }
 }
+
+/*
+Create a function to essentially override a contact with a new version of itself, we do this by giving a function
+our new contact, and we will extract the id to find the entry and replace it
+ */
+export function editContact(newcontact : Contact, storagekey : string) : void {
+    let storage : string | null = localStorage.getItem(storagekey)
+    if (storage !== null) {
+        let json : any = JSON.parse(storage)
+        for (let i : number = 0; i<json.length; i++) {
+            if (json[i].id === newcontact.id) {
+                json[i].firstname = newcontact.firstname
+                json[i].lastname = newcontact.lastname
+                json[i].email = newcontact.email
+                json[i].phone = newcontact.phone
+            }
+        }
+        localStorage.setItem(storagekey, JSON.stringify(json))
+        printJsonAb(storagekey)
+    }
+}
+
+export function getContactById(id: number, storagekey : string) : Contact | boolean {
+    let storage : string | null = localStorage.getItem(storagekey)
+    if (storage !== null) {
+        let json : any = JSON.parse(storage)
+        for (let i : number = 0; i<json.length; i++) {
+            if (json[i].id === id) {
+                return {
+                    id: json[i].id,
+                    firstname: json[i].firstname,
+                    lastname: json[i].lastname,
+                    email: json[i].email,
+                    phone: json[i].phone
+                }
+            }
+        }
+    }
+    return false;
+}

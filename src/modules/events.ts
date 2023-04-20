@@ -2,14 +2,14 @@
 * central function to add all EventListeners to Buttons and other objects
 * returns true if everything worked out fine, if not, there will be an error displayed as an alert
 */
-import {createAddressbook, createContact} from "./storage";
+import {createAddressbook, createContact, editContact} from "./storage";
 import {
     closeAbPopUp,
     closeCreationDialog,
     deleteSelectedBook,
     deleteSelectedContacts,
     openAbPopUp,
-    openCreationDialog
+    openCreationDialog, openEditDialog
 } from "./buttonlogic";
 import {getSelectedItem} from "./reactivity";
 import {Contact} from "./structs";
@@ -95,14 +95,17 @@ export function createEventListeners() : boolean {
          */
         let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
         let svbt : HTMLButtonElement | null = document.querySelector(".btn-save")
+        let editsvbt : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
         if (inputgroup !== null) {
             for (let i: number = 0; i<inputgroup.length; i++) {
                 inputgroup[i].addEventListener("input", ():void =>{
-                    if (inputgroup!== null && svbt !== null && (inputgroup[0].value !== "" && inputgroup[1].value !== "" && (inputgroup[2].value !== "" || inputgroup[3].value !== ""))) {
+                    if (inputgroup!== null && svbt !== null && editsvbt !== null && (inputgroup[0].value !== "" && inputgroup[1].value !== "" && (inputgroup[2].value !== "" || inputgroup[3].value !== ""))) {
                         svbt.disabled = false
+                        editsvbt.disabled = false
                     }
-                    else if (svbt !== null) {
+                    else if (svbt !== null && editsvbt !== null) {
                         svbt.disabled = true
+                        editsvbt.disabled = true
                     }
                 })
             }
@@ -149,7 +152,42 @@ export function createEventListeners() : boolean {
         if (delbtnc !== null) {
             delbtnc.addEventListener("click", deleteSelectedContacts)
         }
-
+        /*
+        Open the Editor for editing of the selected contact
+         */
+        let editbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-contact")
+        if (editbtn !== null) {
+            editbtn.addEventListener("click", () : void => {
+                openEditDialog()
+            })
+        }
+        /*
+        Handle the logic of the edit save button
+         */
+        let editsavebutton : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
+        if (editsavebutton !== null) {
+            editsavebutton.addEventListener("click", (): void => {
+                let selectedab : HTMLButtonElement | boolean = getSelectedItem()
+                if (typeof selectedab !== "boolean") {
+                    let storage : string = selectedab.innerText
+                    let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
+                    if (inputgroup !== null) {
+                        let contactId : HTMLElement | null = document.querySelector(".multiselect")
+                        if (contactId !== null) {
+                            let idstring : string | null = contactId.getAttribute("contactid")
+                            if (idstring !== null) {
+                                let finalid : number = Number.parseInt(idstring)
+                                let rewrite : Contact = {id: finalid, firstname: inputgroup[0].value, lastname: inputgroup[1].value, email: inputgroup[2].value, phone: inputgroup[3].value}
+                                editContact(rewrite, storage)
+                                closeCreationDialog() //does the same
+                            }
+                        }
+                    }
+                } else {
+                    console.error("there was an error while getting the currently selected addressbook for this edit.")
+                }
+            })
+        }
 
 
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.

@@ -3,7 +3,7 @@ This file contains functions which are outsourced from the events.ts module to k
 If there is no special need to keep the functions inside the events module, they are here.
  */
 import {getSelectedItem, printJsonAb, restoreReactivityAb} from "./reactivity";
-import {deleteAddressbookByKey, deleteContact, fixIds} from "./storage";
+import {deleteAddressbookByKey, deleteContact, fixIds, getContactById} from "./storage";
 import {Contact} from "./structs";
 
 /*
@@ -100,11 +100,15 @@ export function openCreationDialog() : void {
     let placeholder : HTMLElement | null = document.querySelector(".placeholder");
     let headlinecreate : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
     let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
-    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null) {
+    let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
+    let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
+    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && oldsvbtn !== null && editsvbtn !== null) {
         placeholder.classList.add("invisible")
         dialog.classList.remove("invisible")
         headlineedit.classList.add("invisible")
         headlinecreate.classList.remove("invisible")
+        oldsvbtn.classList.remove("invisible")
+        editsvbtn.classList.add("invisible")
     }
 }
 /*
@@ -123,6 +127,7 @@ export function closeCreationDialog() : void {
             inputgroup[i].value = ""; //clear values
         }
     }
+
 }
 
 /*
@@ -144,5 +149,51 @@ export function deleteSelectedContacts(this: any) : void {
         }
         fixIds(storagekey)
         restoreReactivityAb()
+    }
+}
+
+/*
+Open up the editor and disable anything else.
+*/
+export function openEditDialog() : void {
+    let dialog : HTMLElement | null = document.querySelector(".contact-editor");
+    let placeholder : HTMLElement | null = document.querySelector(".placeholder");
+    let headlinecreate : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
+    let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-edit-headline")
+    let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
+    let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
+    if (editsvbtn !== null && oldsvbtn !== null) {
+        editsvbtn.classList.remove("invisible")
+        oldsvbtn.classList.add("invisible")
+    }
+    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null) {
+        placeholder.classList.add("invisible")
+        dialog.classList.remove("invisible")
+        headlineedit.classList.remove("invisible")
+        headlinecreate.classList.add("invisible")
+    }
+    let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
+    let selectedcontact : HTMLElement | null = document.querySelector(".multiselect") //only first element
+    let selectedab : HTMLButtonElement | null = document.querySelector(".selected")
+    if (selectedcontact !== null && selectedab !== null) {
+        console.log(selectedcontact)
+        let storagekey : string = selectedab.innerText;
+        let contactid : string | null = selectedcontact.getAttribute("contactid")
+        if (contactid !== null) {
+            let finalid : number = Number.parseInt(contactid)
+            let contactitem : Contact | boolean = getContactById(finalid, storagekey)
+            if (typeof contactitem === "boolean") {
+                console.error("There was an error while getting the contact to prefill it into the form. Editing might not be possible")
+            }
+            else {
+                if (inputgroup !== null && dialog !== null) {
+                    inputgroup[0].value = contactitem.firstname
+                    inputgroup[1].value = contactitem.lastname
+                    inputgroup[2].value = contactitem.email
+                    inputgroup[3].value = contactitem.phone
+                    dialog.setAttribute("currentedit", contactitem.id.toString())
+                }
+            }
+        }
     }
 }
