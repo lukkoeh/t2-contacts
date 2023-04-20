@@ -162,15 +162,19 @@ export function openEditDialog() : void {
     let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-edit-headline")
     let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
     let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
-    if (editsvbtn !== null && oldsvbtn !== null) {
+    let viewclosebtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
+    let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
+    if (editsvbtn !== null && oldsvbtn !== null && viewclosebtn !== null) {
         editsvbtn.classList.remove("invisible")
         oldsvbtn.classList.add("invisible")
+        viewclosebtn.classList.add("invisible")
     }
-    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null) {
+    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && viewer !== null) {
         placeholder.classList.add("invisible")
         dialog.classList.remove("invisible")
         headlineedit.classList.remove("invisible")
         headlinecreate.classList.add("invisible")
+        viewer.classList.add("invisible")
     }
     let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
     let selectedcontact : HTMLElement | null = document.querySelector(".multiselect") //only first element
@@ -205,8 +209,10 @@ export function openViewer(this: any) : void {
     let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
     let placeholder : HTMLElement | null = document.querySelector(".placeholder")
     let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
-    if (viewer !== null && placeholder !== null && contacteditor !== null) {
+    let viewerclosebtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
+    if (viewer !== null && placeholder !== null && contacteditor !== null && viewerclosebtn !== null) {
         viewer.classList.remove("invisible")
+        viewerclosebtn.classList.remove("invisible")
         placeholder.classList.add("invisible")
         contacteditor.classList.add("invisible")
     }

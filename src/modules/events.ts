@@ -188,6 +188,10 @@ export function createEventListeners() : boolean {
                 }
             })
         }
+        /*
+        Add the logic for the viewer close button. Keep in mind that it needs to be hidden and shown at
+        the according places in the program.
+         */
         let closeviewbtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
         if (closeviewbtn !== null) {
             closeviewbtn.addEventListener("click", () : void=>{
