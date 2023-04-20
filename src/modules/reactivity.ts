@@ -26,7 +26,6 @@ Everytime a new object (contact, book) is created or rendered!, it has no event 
 */
 export function restoreReactivityAb() : void {
     let books : NodeListOf<HTMLButtonElement> = document.querySelectorAll(".book")
-    console.log(books.length)
     for (let i : number = 0; i<books.length; i++) {
         books[i].addEventListener("click", handleBookSelect);
     }

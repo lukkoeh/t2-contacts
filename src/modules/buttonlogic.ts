@@ -99,7 +99,7 @@ export function openCreationDialog() : void {
     let dialog : HTMLElement | null = document.querySelector(".contact-editor");
     let placeholder : HTMLElement | null = document.querySelector(".placeholder");
     let headlinecreate : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
-    let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
+    let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-edit-headline")
     let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
     let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
     if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && oldsvbtn !== null && editsvbtn !== null) {
@@ -180,7 +180,6 @@ export function openEditDialog() : void {
     let selectedcontact : HTMLElement | null = document.querySelector(".multiselect") //only first element
     let selectedab : HTMLButtonElement | null = document.querySelector(".selected")
     if (selectedcontact !== null && selectedab !== null) {
-        console.log(selectedcontact)
         let storagekey : string = selectedab.innerText;
         let contactid : string | null = selectedcontact.getAttribute("contactid")
         if (contactid !== null) {
