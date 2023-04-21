@@ -1,0 +1,489 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+/* Source: https://stackoverflow.com/questions/43186015/css-hide-scroll-bar-but-have-element-scrollable */
+
+/* WebFont Import */
+/* roboto-300 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src: url('fonts/roboto-v30-latin-300.eot'); /* IE9 Compat Modes */
+    src: url('fonts/roboto-v30-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/roboto-v30-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/roboto-v30-latin-300.woff') format('woff'), /* Modern Browsers */
+    url('fonts/roboto-v30-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/roboto-v30-latin-300.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/roboto-v30-latin-regular.eot'); /* IE9 Compat Modes */
+    src: url('fonts/roboto-v30-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/roboto-v30-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/roboto-v30-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('fonts/roboto-v30-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/roboto-v30-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-italic - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 400;
+    src: url('fonts/roboto-v30-latin-italic.eot'); /* IE9 Compat Modes */
+    src: url('fonts/roboto-v30-latin-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/roboto-v30-latin-italic.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/roboto-v30-latin-italic.woff') format('woff'), /* Modern Browsers */
+    url('fonts/roboto-v30-latin-italic.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/roboto-v30-latin-italic.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-500 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: url('fonts/roboto-v30-latin-500.eot'); /* IE9 Compat Modes */
+    src: url('fonts/roboto-v30-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/roboto-v30-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/roboto-v30-latin-500.woff') format('woff'), /* Modern Browsers */
+    url('fonts/roboto-v30-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/roboto-v30-latin-500.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-700 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    src: url('fonts/roboto-v30-latin-700.eot'); /* IE9 Compat Modes */
+    src: url('fonts/roboto-v30-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/roboto-v30-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/roboto-v30-latin-700.woff') format('woff'), /* Modern Browsers */
+    url('fonts/roboto-v30-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/roboto-v30-latin-700.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-900 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 900;
+    src: url('fonts/roboto-v30-latin-900.eot'); /* IE9 Compat Modes */
+    src: url('fonts/roboto-v30-latin-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/roboto-v30-latin-900.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/roboto-v30-latin-900.woff') format('woff'), /* Modern Browsers */
+    url('fonts/roboto-v30-latin-900.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/roboto-v30-latin-900.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* General Layout Classes */
+
+.navbar, .nav-list {
+    height: 10vh;
+    width: 100%;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.btn-nav-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.w15 {
+    width: 15%;
+}
+
+.w25 {
+    width: 25%;
+}
+
+.w60 {
+    width: 60%;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.ps20 {
+    padding: 0 20px;
+}
+
+.ps30 {
+    padding: 0 30px;
+}
+
+.p20 {
+    padding: 20px;
+}
+
+.sticktop {
+    position: absolute;
+    top: 10vh;
+}
+
+.w15, .w25, .w60, .w100 {
+    height: 90vh;
+}
+
+.contact-controls {
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-contain {
+    position: relative;
+}
+
+.contactlist:nth-child(2) {
+    margin-top: 8vh;
+}
+
+.contactlist {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 82vh;
+}
+
+.contact-item {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: #3A3A3A;
+    border-top: 1px solid #666;
+}
+
+.contact-item:before {
+    content: "";
+    width: 10px;
+    height: 10vh;
+    background-color: #2F2F2F;
+    position: absolute;
+    left: 0;
+    transition: all 250ms ease;
+}
+
+.contact-item:hover:before {
+    background-color: #222;
+    width: 15px;
+    transition: 250ms all ease;
+}
+
+.bookshelf {
+    border-right: 1px solid #666666;
+    justify-content: center;
+}
+
+.bookshelf h3 {
+    font-weight: 400;
+}
+
+.books {
+    display: flex;
+    flex-direction: column;
+}
+
+.element-bookshelf {
+    background-color: #2F2F2F;
+    border: none;
+    width: 100%;
+    height: 5vh;
+}
+
+.placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.placeholder p {
+    font-size: 1.5rem;
+}
+
+/* Colors */
+/* BGs */
+.sidebar {
+    background-color: #333333;
+}
+
+.contactlist {
+    background-color: #444444;
+}
+
+.editarea {
+    background-color: #555555;
+}
+
+.navbar {
+    background-color: #222222;
+}
+
+.contact-controls {
+    background-color: #3D3D3D;
+}
+
+.ce-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 40vh;
+}
+
+.inputgroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.inputgroup input {
+    width: 100%;
+    border: none;
+    background-color: #444444;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    padding-left: 10px;
+}
+
+.inputgroup label {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+.action-create-headline, .action-edit-headline {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.buttongroup-editor {
+    display: flex;
+    position: absolute;
+    width: 25%;
+    justify-content: flex-end;
+    align-items: center;
+    right: 0;
+    bottom: 0;
+    gap: 20px;
+    height: 8vh;
+    margin-right: 20px;
+}
+
+/* text-elements */
+p, a, h1, h2, h3, h4, h5, button, label {
+    color: white;
+}
+
+button, p, a {
+    font-size: 1rem;
+}
+
+.heading {
+    font-size: 1.5rem;
+}
+
+/* Dividers */
+
+hr {
+    border-top: 1px solid white;
+}
+
+/* Link-Formatting */
+a {
+    text-decoration: none;
+}
+
+/* Buttons */
+.btn-nav {
+    border: none;
+    background-color: #2F2F2F;
+    height: 10vh;
+    min-width: 96px;
+}
+
+.btn-control {
+    height: 4vh;
+    width: 32%;
+    background-color: #222222;
+    border: none;
+    border-radius: 5px;
+    transition: all 250ms ease;
+}
+
+.btn-control:disabled, .btn-bookdelete:disabled {
+    background-color: #3F3F3F;
+    color: grey;
+}
+
+.btn-bookcreate {
+    position: absolute;
+    bottom: 0;
+    width: 15%;
+    height: 8vh;
+    background-color: #222222;
+    transition: all 250ms ease;
+}
+
+.btn-bookdelete {
+    position: absolute;
+    bottom: 8vh;
+    width: 15%;
+    height: 5vh;
+    background-color: #222222;
+    border-bottom: 1px solid #444;
+    transition: all 250ms ease;
+}
+
+.btn-cancel, .btn-save {
+    border-radius: 5px;
+}
+
+.btn-control:hover, .btn-bookcreate:hover, .btn-bookdelete:hover {
+    background-color: #2F2F2F;
+    transition: all 250ms ease;
+}
+
+.btn-pp-save, .btn-pp-cancel {
+    background-color: #111;
+}
+
+.btn-pp-save:hover, .btn-pp-cancel:hover {
+    background-color: #1F1F1F;
+}
+
+.btn-pp-save:hover:disabled {
+    background-color: #3F3F3F;
+}
+
+/* Util classes (used by ts) */
+.invisible {
+    display: none !important;
+}
+
+/* Popup for naming the books */
+.book-naming-popup {
+    position: fixed;
+    width: 30%;
+    left: 35%;
+    height: 20%;
+    top: 40%;
+    background-color: #222222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.book-naming-popup input {
+    width: 80%;
+    height: 40px;
+    margin: 10px;
+    background-color: #444;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    color: white;
+    outline: none;
+}
+
+.book-naming-popup:before {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    width: 300%;
+    height: 100vh;
+    background-color: #222222;
+    opacity: 0.7;
+}
+
+.popup-buttons {
+    display: flex;
+    width: 80%;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.selected, .multiselect {
+    background-color: #3F3F3F;
+}
+
+.multiselect:before {
+    background-color: white;
+}
+/*
+About popup
+ */
+
+.about-popup {
+    position: fixed;
+    width: 30%;
+    right: -30%;
+    height: 100vh;
+    top: 0;
+    background-color: #222222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+    text-align: center;
+    transition: right 250ms ease;
+}
+
+.about-popup h1 {
+    font-size: 3rem;
+}
+
+.about-popup h2, .about-popup h2 a {
+    font-size: 1.5rem;
+}
+
+.about-button {
+    width: 100%;
+    background-color: #1A1A1A;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    transition: 250ms all ease;
+}
+
+.about-button:hover {
+    background-color: #1F1F1F;
+    transition: 250ms all ease;
+}
