@@ -71,10 +71,10 @@ export function deleteSelectedBook(this: any) : void { //any = instance of delet
 This function allows one to print a contact into the contacts-view, without implementing the logic multiple times
 But, it only takes a Contact Struct.
  */
-export function spawnContact(print : Contact) {
+export function spawnContact(print : Contact) : void {
     const container : HTMLElement | null = document.querySelector(".contact-contain")
     if (container !== null) {
-        let element = document.createElement('aside')
+        let element : HTMLElement = document.createElement('aside')
         element.setAttribute("contactid", print.id.toString())
         element.classList.add("contact-item")
         element.classList.add("ps30")
@@ -102,7 +102,9 @@ export function openCreationDialog() : void {
     let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-edit-headline")
     let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
     let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
-    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && oldsvbtn !== null && editsvbtn !== null) {
+    let viewerbt : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
+    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && oldsvbtn !== null && editsvbtn !== null && viewerbt !== null) {
+        viewerbt.classList.add("invisible")
         placeholder.classList.add("invisible")
         dialog.classList.remove("invisible")
         headlineedit.classList.add("invisible")
@@ -145,6 +147,7 @@ export function deleteSelectedContacts(this: any) : void {
             if (idstring !== null) {
                 let newid : number = Number.parseInt(idstring)
                 deleteContact(newid, storagekey)
+                closeViewer()
             }
         }
         fixIds(storagekey)
@@ -243,5 +246,24 @@ export function closeViewer() : void {
         viewer.classList.add("invisible")
         placeholder.classList.remove("invisible")
         contacteditor.classList.add("invisible")
+    }
+}
+
+/*
+Create a function to show the About PopUp
+ */
+export function openAboutPopUp() : void {
+    let popup : HTMLDivElement | null = document.querySelector(".about-popup")
+    if (popup !== null) {
+        popup.classList.remove("invisible")
+    }
+}
+/*
+Create a function to hide the popup
+ */
+export function closeAboutPopUp() : void {
+    let popup : HTMLDivElement | null = document.querySelector(".about-popup")
+    if (popup !== null) {
+        popup.classList.add("invisible")
     }
 }

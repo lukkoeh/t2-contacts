@@ -4,10 +4,11 @@
 */
 import {createAddressbook, createContact, editContact} from "./storage";
 import {
+    closeAboutPopUp,
     closeAbPopUp,
     closeCreationDialog, closeViewer,
     deleteSelectedBook,
-    deleteSelectedContacts,
+    deleteSelectedContacts, openAboutPopUp,
     openAbPopUp,
     openCreationDialog, openEditDialog
 } from "./buttonlogic";
@@ -196,6 +197,18 @@ export function createEventListeners() : boolean {
         if (closeviewbtn !== null) {
             closeviewbtn.addEventListener("click", () : void=>{
                 closeViewer()
+            })
+        }
+        let aboutbtn : HTMLButtonElement | null = document.querySelector(".btn-about")
+        if (aboutbtn !== null) {
+            aboutbtn.addEventListener("click", () : void => {
+                openAboutPopUp()
+            })
+        }
+        let aboutclosebtn : HTMLButtonElement | null = document.querySelector(".about-button")
+        if (aboutclosebtn !== null) {
+            aboutclosebtn.addEventListener("click", () : void => {
+                closeAboutPopUp()
             })
         }
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.
