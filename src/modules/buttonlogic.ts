@@ -78,10 +78,10 @@ export function spawnContact(print : Contact) : void {
         element.setAttribute("contactid", print.id.toString())
         element.classList.add("contact-item")
         element.classList.add("ps30")
-        let innerp = document.createElement("p")
+        let innerp : HTMLParagraphElement = document.createElement("p")
         innerp.innerText = print.firstname + " " + print.lastname
         element.appendChild(innerp)
-        let innerp2 = document.createElement("p")
+        let innerp2 : HTMLParagraphElement = document.createElement("p")
         if (print.email !== "") {
             innerp2.innerText = print.email
         } else {
@@ -103,6 +103,12 @@ export function openCreationDialog() : void {
     let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
     let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
     let viewerbt : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
+    let inputs : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
+    if (inputs !== null) {
+        for (let i : number = 0; i< inputs.length; i++) {
+            inputs[i].value = "";
+        }
+    }
     if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && oldsvbtn !== null && editsvbtn !== null && viewerbt !== null) {
         viewerbt.classList.add("invisible")
         placeholder.classList.add("invisible")
@@ -255,7 +261,7 @@ Create a function to show the About PopUp
 export function openAboutPopUp() : void {
     let popup : HTMLDivElement | null = document.querySelector(".about-popup")
     if (popup !== null) {
-        popup.classList.remove("invisible")
+        popup.style.right = "0"
     }
 }
 /*
@@ -264,6 +270,6 @@ Create a function to hide the popup
 export function closeAboutPopUp() : void {
     let popup : HTMLDivElement | null = document.querySelector(".about-popup")
     if (popup !== null) {
-        popup.classList.add("invisible")
+        popup.style.right = "-30%"
     }
 }
