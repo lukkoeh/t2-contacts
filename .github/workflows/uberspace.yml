@@ -1,0 +1,26 @@
+name: Deploy to WebPreview
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2.5.2
+        with:
+          node-version: 18
+      - name: Install deps
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Add SSH-Key
+        uses: shimataro/ssh-key-action@v2.5.1
+        with: 
+          key: ${{secrets.SSH_DEPLOY_KEY}}
+          known_hosts: "placeholder"
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
+      - name: Deploy index.html to webserver
+        run: rsync -hrvz --delete . ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:~/html/t2-contacts/
