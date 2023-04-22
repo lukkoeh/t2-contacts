@@ -123,8 +123,8 @@ export function createEventListeners() : boolean {
                         id: 0, //temporary, gets set by storage unit
                         firstname: inputgroup[0].value,
                         lastname: inputgroup[1].value,
-                        phone: inputgroup[2].value,
-                        email: inputgroup[3].value
+                        email: inputgroup[2].value,
+                        phone: inputgroup[3].value
                     }
                     let element : HTMLButtonElement | boolean = getSelectedItem();
                     if (typeof element === "boolean") {
