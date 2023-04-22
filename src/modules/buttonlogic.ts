@@ -79,11 +79,9 @@ export function spawnContact(print : Contact) : void {
         element.classList.add("contact-item")
         element.classList.add("ps30")
         let innerp : HTMLParagraphElement = document.createElement("p")
-        innerp.classList.add(".text-ellipsis")
         innerp.innerText = print.firstname + " " + print.lastname
         element.appendChild(innerp)
         let innerp2 : HTMLParagraphElement = document.createElement("p")
-        innerp2.classList.add(".text-ellipsis")
         if (print.email !== "") {
             innerp2.innerText = print.email
         } else {

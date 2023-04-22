@@ -13,7 +13,7 @@ export function createAddressbook(name: string) : boolean {
         alert("Addressbook could not be created. Reason: already exists")
         return false;
     }
-    localStorage.setItem(name, "[]"); //create the item with an empty JSON array
+    localStorage.setItem(name.trim(), "[]"); //create the item with an empty JSON array
      //update the view.
     updateBookShelf()
     restoreReactivityAb()
