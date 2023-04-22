@@ -54,7 +54,7 @@ to finally delete the entry via the localStorage API
 export function deleteSelectedBook(this: any) : void { //any = instance of delete button
     let book2del : HTMLButtonElement | boolean = getSelectedItem()
     if (typeof book2del !== "boolean") {
-        let key = book2del.innerHTML;
+        let key : string = book2del.innerHTML;
         deleteAddressbookByKey(key);
         if (book2del.parentNode !== null) {
             book2del.parentNode.removeChild(book2del); //It quite literally deletes itself XD
@@ -79,9 +79,11 @@ export function spawnContact(print : Contact) : void {
         element.classList.add("contact-item")
         element.classList.add("ps30")
         let innerp : HTMLParagraphElement = document.createElement("p")
+        innerp.classList.add(".text-ellipsis")
         innerp.innerText = print.firstname + " " + print.lastname
         element.appendChild(innerp)
         let innerp2 : HTMLParagraphElement = document.createElement("p")
+        innerp2.classList.add(".text-ellipsis")
         if (print.email !== "") {
             innerp2.innerText = print.email
         } else {
