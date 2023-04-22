@@ -33,7 +33,7 @@ export function createEventListeners() : boolean {
          */
         let ppinput : HTMLInputElement | null = document.querySelector("#addrname")
         if (ppinput !== null) {
-            ppinput.addEventListener("input", ()=>{
+            ppinput.addEventListener("input", () : void =>{
                 let btn : HTMLButtonElement | null = document.querySelector(".btn-pp-save")
                 if (ppinput !== null && btn !== null) {
                     btn.disabled = ppinput.value == ""; //shorthand, button is disabled when the value is blank.
@@ -63,7 +63,7 @@ export function createEventListeners() : boolean {
          */
         let ppcancel : HTMLButtonElement | null = document.querySelector(".btn-pp-cancel")
         if (ppcancel !== null) {
-            ppcancel.addEventListener("click", ()=>{
+            ppcancel.addEventListener("click", () : void =>{
                 closeAbPopUp();
                 if (ppinput !== null) {
                     ppinput.value = "";

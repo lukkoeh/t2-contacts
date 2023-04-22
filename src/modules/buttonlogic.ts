@@ -3,7 +3,7 @@ This file contains functions which are outsourced from the events.ts module to k
 If there is no special need to keep the functions inside the events module, they are here.
  */
 import {abDeletionHook, getSelectedItem, printJsonAb, restoreReactivityAb} from "./reactivity";
-import {deleteAddressbookByKey, deleteContact, fixIds, getContactById} from "./storage";
+import {createContact, deleteAddressbookByKey, deleteContact, fixIds, getContactById} from "./storage";
 import {Contact} from "./structs";
 
 /*
@@ -76,6 +76,7 @@ export function spawnContact(print : Contact) : void {
     const container : HTMLElement | null = document.querySelector(".contact-contain")
     if (container !== null) {
         let element : HTMLElement = document.createElement('aside')
+        element.setAttribute("draggable", "true")
         element.setAttribute("contactid", print.id.toString())
         element.classList.add("contact-item")
         element.classList.add("ps30")
@@ -272,5 +273,41 @@ export function closeAboutPopUp() : void {
     let popup : HTMLDivElement | null = document.querySelector(".about-popup")
     if (popup !== null) {
         popup.style.right = "-30%"
+    }
+}
+
+/*
+Create a function to handle drag and drop feature
+ */
+export function handleContactDrag(this: any, ev : DragEvent) : void {
+    let contactid : string | null = this.getAttribute("contactid")
+    if (contactid !== null && ev.dataTransfer !== null) {
+        ev.dataTransfer.dropEffect = "move"
+        let storage : boolean | HTMLButtonElement = getSelectedItem()
+        if (typeof storage !== "boolean") {
+            let key: string = storage.innerText
+            let obj : {cid: string, sk: string} = {cid: contactid, sk: key}
+            console.log(obj)
+            ev.dataTransfer.setData("text/plain", JSON.stringify(obj))
+        }
+    }
+}
+
+/*
+see above
+ */
+export function handleContactDrop(this: any, ev: DragEvent) : void {
+    ev.preventDefault()
+    if (ev.dataTransfer !== null) {
+        const data : string = ev.dataTransfer.getData("text/plain")
+        let result : {cid: string, sk: string} = JSON.parse(data)
+        let newstorage : string = this.innerText;
+        // perform transfer
+        let contacttmp : Contact | boolean = getContactById(Number.parseInt(result.cid), result.sk)
+        if (typeof contacttmp !== "boolean"){
+            deleteContact(contacttmp.id, result.sk)
+            createContact(contacttmp, newstorage)
+        }
+        printJsonAb(result.sk)
     }
 }

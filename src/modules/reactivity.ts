@@ -2,7 +2,14 @@
 This file contains functions to update various components of the site to mimic reactivity.
 Those functions are made to be called as often as the situation needs them to be called.
  */
-import {closeViewer, handleBookSelect, openViewer, spawnContact} from "./buttonlogic";
+import {
+    closeViewer,
+    handleBookSelect,
+    handleContactDrag,
+    handleContactDrop,
+    openViewer,
+    spawnContact
+} from "./buttonlogic";
 import {Contact} from "./structs";
 import {createAddressbook} from "./storage";
 
@@ -28,13 +35,19 @@ Everytime a new object (contact, book) is created or rendered!, it has no event 
 export function restoreReactivityAb() : void {
     let books : NodeListOf<HTMLButtonElement> = document.querySelectorAll(".book")
     for (let i : number = 0; i<books.length; i++) {
-        books[i].addEventListener("click", handleBookSelect);
+        books[i].addEventListener("click", handleBookSelect)
+        books[i].addEventListener("drop", handleContactDrop)
+        books[i].addEventListener("dragover", (ev)=>{
+            ev.preventDefault()
+        })
     }
     let contacts : NodeListOf<HTMLElement> | null = document.querySelectorAll(".contact-item")
     if (contacts !== null) {
         for (let i: number = 0; i<contacts.length; i++) {
             contacts[i].addEventListener("click", toggleMultiSelect)
             contacts[i].addEventListener("dblclick", openViewer)
+            contacts[i].addEventListener("drag", (ev: Event):void => {ev.preventDefault()})
+            contacts[i].addEventListener("dragstart", handleContactDrag)
         }
     }
     handleButtonDisable()
