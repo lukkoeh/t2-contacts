@@ -486,3 +486,7 @@ About popup
     background-color: #1F1F1F;
     transition: 250ms all ease;
 }
+
+.form-input:invalid {
+    background-color: darkred;
+}

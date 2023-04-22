@@ -100,7 +100,7 @@ export function createEventListeners() : boolean {
         if (inputgroup !== null) {
             for (let i: number = 0; i<inputgroup.length; i++) {
                 inputgroup[i].addEventListener("input", ():void =>{
-                    if (inputgroup!== null && svbt !== null && editsvbt !== null && (inputgroup[0].value !== "" && inputgroup[1].value !== "" && (inputgroup[2].value !== "" || inputgroup[3].value !== ""))) {
+                    if (inputgroup!== null && svbt !== null && editsvbt !== null && (inputgroup[0].value !== "" && inputgroup[1].value !== "" && (inputgroup[2].value !== "" || inputgroup[3].value !== "")) && inputgroup[2].validity.valid && inputgroup[3].validity.valid) {
                         svbt.disabled = false
                         editsvbt.disabled = false
                     }

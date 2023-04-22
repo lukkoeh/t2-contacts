@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
     }
     // Start by creating the bookshelf, but only on first run
     if (window.localStorage.length === 0) {
-        createAddressbook("Default Shitbook");
+        createAddressbook("Default");
     } else { //if there are already books, just update the bookshelf
         updateBookShelf();
     }
