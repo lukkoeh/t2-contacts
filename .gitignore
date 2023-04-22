@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=node
 
 ##Bundle
-#build/
+build/bundle.js
 ### Node ###
 # Logs
 logs

@@ -2,7 +2,7 @@
 This file contains functions which are outsourced from the events.ts module to keep the code more readable.
 If there is no special need to keep the functions inside the events module, they are here.
  */
-import {getSelectedItem, printJsonAb, restoreReactivityAb} from "./reactivity";
+import {abDeletionHook, getSelectedItem, printJsonAb, restoreReactivityAb} from "./reactivity";
 import {deleteAddressbookByKey, deleteContact, fixIds, getContactById} from "./storage";
 import {Contact} from "./structs";
 
@@ -62,6 +62,7 @@ export function deleteSelectedBook(this: any) : void { //any = instance of delet
         if (localStorage.length === 0) {
             this.disabled = true;
         }
+        abDeletionHook();
     }
     else {
         console.error("There was an error while finding the correct book, you may reselect or reload.")

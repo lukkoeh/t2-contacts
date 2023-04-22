@@ -2,8 +2,9 @@
 This file contains functions to update various components of the site to mimic reactivity.
 Those functions are made to be called as often as the situation needs them to be called.
  */
-import {handleBookSelect, openViewer, spawnContact} from "./buttonlogic";
+import {closeViewer, handleBookSelect, openViewer, spawnContact} from "./buttonlogic";
 import {Contact} from "./structs";
+import {createAddressbook} from "./storage";
 
 export function updateBookShelf() : void {
     const container : Element | null = document.querySelector(".books-dyn");
@@ -113,6 +114,31 @@ export function handleButtonDisable() : void {
         else if (elements.length > 1) {
             buttonedit.disabled = true
             buttondelete.disabled = false
+        }
+    }
+}
+
+/*
+Create a function to auto select and render a new addressbook after one was deleted. Consider that there might be NO ADDRESSBOOK left...
+ */
+export function abDeletionHook() : void {
+    closeViewer()
+    if (localStorage.length === 0) { // 0 = there is no ab left
+        createAddressbook("Default")
+        printJsonAb("Default")
+    } else {
+        let storage : string | null = localStorage.key(0)
+        if (storage !== null) {
+            printJsonAb(storage)
+            let abs : NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".book")
+            for (let i : number = 0; i<abs.length; i++) {
+                if (abs[i].innerText === storage) {
+                    abs[i].classList.add("selected")
+                } else {
+                    abs[i].classList.remove("selected")
+                }
+            }
+
         }
     }
 }
