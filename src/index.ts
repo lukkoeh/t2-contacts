@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
     // Start by creating the bookshelf, but only on first run
     if (window.localStorage.length === 0) {
         createAddressbook("Default");
-    } else { //if there are already books, just update the bookshelf
+    } else { //if there are already books, just update the bookshelf to render
         updateBookShelf();
     }
 });

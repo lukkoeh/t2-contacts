@@ -323,3 +323,16 @@ export function handleContactDrop(this: any, ev: DragEvent) : void {
         printJsonAb(result.sk)
     }
 }
+export function openSettings() : void {
+    let popup : HTMLDivElement | null = document.querySelector(".settings-popup")
+    if (popup !== null) {
+        popup.style.right = "0"
+    }
+}
+
+export function closeSettings() : void {
+    let popup : HTMLDivElement | null = document.querySelector(".settings-popup")
+    if (popup !== null) {
+        popup.style.right = "-30%"
+    }
+}
