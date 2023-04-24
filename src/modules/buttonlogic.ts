@@ -280,15 +280,24 @@ export function closeAboutPopUp() : void {
 Create a function to handle drag and drop feature
  */
 export function handleContactDrag(this: any, ev : DragEvent) : void {
-    let contactid : string | null = this.getAttribute("contactid")
-    if (contactid !== null && ev.dataTransfer !== null) {
-        ev.dataTransfer.dropEffect = "move"
-        let storage : boolean | HTMLButtonElement = getSelectedItem()
-        if (typeof storage !== "boolean") {
-            let key: string = storage.innerText
-            let obj : {cid: string, sk: string} = {cid: contactid, sk: key}
-            console.log(obj)
-            ev.dataTransfer.setData("text/plain", JSON.stringify(obj))
+    let mselements : NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".multiselect")
+    let ids : string[] = []
+    if (mselements !== null) {
+        for (let i : number=0; i<mselements.length; i++) {
+            let idtmp : string | null = mselements[i].getAttribute("contactid")
+            if (idtmp !== null) {
+                ids.push(idtmp)
+            }
+        }
+        if (ev.dataTransfer !== null) {
+            ev.dataTransfer.dropEffect = "move"
+            let storage : boolean | HTMLButtonElement = getSelectedItem()
+            if (typeof storage !== "boolean") {
+                let key: string = storage.innerText
+                let obj : {cid: string[], sk: string} = {cid: ids, sk: key}
+                console.log(obj)
+                ev.dataTransfer.setData("text/plain", JSON.stringify(obj))
+            }
         }
     }
 }
@@ -300,13 +309,15 @@ export function handleContactDrop(this: any, ev: DragEvent) : void {
     ev.preventDefault()
     if (ev.dataTransfer !== null) {
         const data : string = ev.dataTransfer.getData("text/plain")
-        let result : {cid: string, sk: string} = JSON.parse(data)
+        let result : {cid: string[], sk: string} = JSON.parse(data)
         let newstorage : string = this.innerText;
         // perform transfer
-        let contacttmp : Contact | boolean = getContactById(Number.parseInt(result.cid), result.sk)
-        if (typeof contacttmp !== "boolean"){
-            deleteContact(contacttmp.id, result.sk)
-            createContact(contacttmp, newstorage)
+        for (let i: number = 0; i<result.cid.length; i++) {
+            let contacttmp : Contact | boolean = getContactById(Number.parseInt(result.cid[i]), result.sk)
+            if (typeof contacttmp !== "boolean"){
+                deleteContact(contacttmp.id, result.sk)
+                createContact(contacttmp, newstorage)
+            }
         }
         printJsonAb(result.sk)
     }
