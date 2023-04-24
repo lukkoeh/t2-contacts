@@ -280,6 +280,7 @@ export function closeAboutPopUp() : void {
 Create a function to handle drag and drop feature
  */
 export function handleContactDrag(this: any, ev : DragEvent) : void {
+    this.classList.add("multiselect")
     let mselements : NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".multiselect")
     let ids : string[] = []
     if (mselements !== null) {
