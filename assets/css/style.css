@@ -584,6 +584,14 @@ About popup
     font-size: 1.5rem;
 }
 
+.about-popup h2 a, .about-popup p a {
+    color: var(--blueActive);
+}
+
+.about-popup h2 a:hover, .about-popup p a:hover {
+    color: var(--blueDisabled);
+}
+
 .about-button {
     width: 100%;
     background-color: var(--controlsBg);
