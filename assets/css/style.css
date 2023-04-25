@@ -177,6 +177,19 @@ body {
     width: calc(25% - 20px);
 }
 
+.sticktop-viewer {
+    position: absolute;
+    top: calc(10vh + 40px);
+    width: calc(60% - 40px);
+    margin-left: -20px;
+    font-weight: 700;
+}
+
+.contact-viewer-content {
+    margin-top: calc(13vh + 10px);
+}
+
+
 .w15, .w25, .w60, .w100 {
     background-color: white;
     box-shadow: 3px 6px 6px #ddd;
@@ -280,6 +293,12 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     height: 40vh;
+    margin-top: calc(8vh - 10px);
+}
+
+.contact-viewer-content p {
+    font-size: 1.15rem;
+    margin-bottom: 20px;
 }
 
 .inputgroup {
@@ -293,6 +312,53 @@ body {
 .ce-inputs {
     border-radius: 0 !important;
     box-shadow: none !important;
+}
+
+.sticktop-with-controls {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.viewer-shortcuts {
+    width: calc(60% - 40px);
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5vh;
+    margin-left: -20px;
+    margin-top: calc(8vh - 20px);
+}
+
+.viewer-shortcuts button {
+    background-color: var(--controlsBg);
+    border: 1px solid var(--blueActive);
+    color: var(--blueActive);
+    width: 50%;
+    text-align: center;
+    height: 100%;
+    vertical-align: center;
+    padding: 10px;
+    transition: all 250ms ease;
+}
+
+.viewer-shortcuts button:hover{
+    background-color: var(--blueActive);
+    color: var(--whiteText);
+}
+
+.viewer-shortcuts button:disabled {
+    background-color: var(--blueDisabled);
+    color: var(--whiteText);
+    border: 1px solid #ddd;
+}
+
+.viewer-shortcuts button:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.viewer-shortcuts button:nth-child(2) {
+    border-bottom-right-radius: 10px;
 }
 
 .inputgroup input {
@@ -313,7 +379,6 @@ body {
 
 .action-create-headline, .action-edit-headline {
     font-size: 1.5rem;
-    margin-bottom: 20px;
 }
 
 .buttongroup-editor {
@@ -324,8 +389,9 @@ body {
     align-items: center;
     right: 0;
     bottom: 0;
-    height: 8vh;
+    height: 5vh;
     margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 /* text-elements */
@@ -378,8 +444,9 @@ a {
     color: var(--whiteText);
 }
 
-.btn-cancel, .btn-save, .btn-edit-save {
+.btn-cancel, .btn-save, .btn-edit-save, .btn-close-viewer {
     border-radius: 10px;
+    height: 5vh;
 }
 
 .btn-cancel {
@@ -491,7 +558,7 @@ a {
 About popup
  */
 
-.about-popup, .settings-popup {
+.about-popup {
     position: fixed;
     width: 30%;
     right: -30%;
@@ -509,15 +576,15 @@ About popup
     transition: right 250ms ease;
 }
 
-.about-popup h1, .settings-popup h1 {
+.about-popup h1 {
     font-size: 3rem;
 }
 
-.about-popup h2, .about-popup h2 a, .settings-popup h2, .settings-popup h2 a {
+.about-popup h2, .about-popup h2 a {
     font-size: 1.5rem;
 }
 
-.about-button, .settings-close-button {
+.about-button {
     width: 100%;
     background-color: var(--controlsBg);
     color: var(--blackText);
@@ -534,11 +601,6 @@ About popup
 
 .form-input:invalid {
     background-color: red;
-}
-
-.settings-popup {
-    align-items: flex-start;
-    justify-content: center;
 }
 
 .contact-contain {

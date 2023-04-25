@@ -6,11 +6,11 @@ import {createAddressbook, createContact, editContact} from "./storage";
 import {
     closeAboutPopUp,
     closeAbPopUp,
-    closeCreationDialog, closeSettings, closeViewer,
+    closeCreationDialog, closeViewer,
     deleteSelectedBook,
     deleteSelectedContacts, openAboutPopUp,
     openAbPopUp,
-    openCreationDialog, openEditDialog, openSettings
+    openCreationDialog, openEditDialog
 } from "./buttonlogic";
 import {getSelectedItem} from "./reactivity";
 import {Contact} from "./structs";
@@ -209,19 +209,6 @@ export function createEventListeners() : boolean {
         if (aboutclosebtn !== null) {
             aboutclosebtn.addEventListener("click", () : void => {
                 closeAboutPopUp()
-            })
-        }
-        let settingsbtn : HTMLButtonElement | null = document.querySelector(".btn-settings")
-        if (settingsbtn !== null) {
-            settingsbtn.addEventListener("click", ():void => {
-                openSettings()
-            })
-        }
-
-        let settingsclbtn : HTMLButtonElement | null = document.querySelector(".settings-close-button")
-        if (settingsclbtn !== null) {
-            settingsclbtn.addEventListener("click", ():void => {
-                closeSettings()
             })
         }
     } catch (e : any) { //any error may be catched here. That is why, for once, we use any here.

@@ -220,6 +220,9 @@ export function openViewer(this: any) : void {
     let placeholder : HTMLElement | null = document.querySelector(".placeholder")
     let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
     let viewerclosebtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
+    let viewerhd : HTMLSpanElement | null = document.querySelector(".view-headline")
+    let vieweractioncall : HTMLButtonElement | null  = document.querySelector(".viewer-shortcut-call")
+    let vieweractionemail : HTMLButtonElement | null = document.querySelector(".viewer-shortcut-email")
     if (viewer !== null && placeholder !== null && contacteditor !== null && viewerclosebtn !== null) {
         viewer.classList.remove("invisible")
         viewerclosebtn.classList.remove("invisible")
@@ -236,11 +239,25 @@ export function openViewer(this: any) : void {
             let id : number = Number.parseInt(idstring)
             let contactdata : Contact | boolean = getContactById(id,storagekey)
             let spans : NodeListOf<HTMLSpanElement> | null = document.querySelectorAll(".view-label")
-            if (spans !== null && typeof contactdata !== "boolean") {
+            if (spans !== null && typeof contactdata !== "boolean" && viewerhd !== null && vieweractioncall !== null && vieweractionemail !== null) {
+                viewerhd.innerText = contactdata.firstname + " " + contactdata.lastname
                 spans[0].innerText = contactdata.firstname
                 spans[1].innerText = contactdata.lastname
                 spans[2].innerText = contactdata.email
                 spans[3].innerText = contactdata.phone
+                console.log(contactdata)
+                if (contactdata.email != "") {
+                    vieweractionemail.setAttribute("onclick", "window.location.href='mailto:" + contactdata.email + "'")
+                    vieweractionemail.removeAttribute("disabled")
+                } else {
+                    vieweractionemail.setAttribute("disabled", "true")
+                }
+                if (contactdata.phone != "") {
+                    vieweractioncall.setAttribute("href", "window.location.href='phone:" + contactdata.phone + "'")
+                    vieweractioncall.removeAttribute("disabled")
+                } else {
+                    vieweractioncall.setAttribute("disabled", "true")
+                }
             }
         }
     }
@@ -321,18 +338,5 @@ export function handleContactDrop(this: any, ev: DragEvent) : void {
             }
         }
         printJsonAb(result.sk)
-    }
-}
-export function openSettings() : void {
-    let popup : HTMLDivElement | null = document.querySelector(".settings-popup")
-    if (popup !== null) {
-        popup.style.right = "0"
-    }
-}
-
-export function closeSettings() : void {
-    let popup : HTMLDivElement | null = document.querySelector(".settings-popup")
-    if (popup !== null) {
-        popup.style.right = "-30%"
     }
 }

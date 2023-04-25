@@ -53,8 +53,10 @@
                 <p>Open or create a Contact to start</p>
             </aside>
             <aside class="contact-editor w100 p20 invisible">
+                <aside class="contact-controls w25 ps20 sticktop-viewer">
                 <p class="action-create-headline">Create Contact</p>
                 <p class="action-edit-headline invisible">Edit Contact</p>
+                </aside>
                 <div class="ce-inputs w100">
                     <div class="inputgroup">
                         <label for="fname">First name:</label>
@@ -82,16 +84,22 @@
                 </div>
             </aside>
             <aside class="w100 p20 invisible contact-viewer">
-                <h2>View contact</h2>
-                <p>First name: <span class="view-label view-firstname">Error</span></p>
-                <p>Last name: <span class="view-label view-lastname">Error</span></p>
-                <p>E-Mail: <span class="view-label view-email">Error</span></p>
-                <p>Phone: <span class="view-label view-firstname">Error</span></p>
-                <h3>Other info</h3>
-                <p class="view-label view-ab">Addressbook</p>
-                <div class="buttongroup-editor pl20">
-                    <button class="btn-control btn-close-viewer">Close</button>
+                <aside class="contact-controls w25 ps20 sticktop-viewer sticktop-with-controls">
+                    <h2>View contact: <span class="view-headline"></span></h2>
+                </aside>
+                <div class="viewer-shortcuts">
+                    <button class="viewer-shortcut-btn viewer-shortcut-call" disabled>Call</button>
+                    <button class="viewer-shortcut-btn viewer-shortcut-email" disabled>E-Mail</button>
                 </div>
+                <aside class="contact-viewer-content">
+                    <p>First name: <span class="view-label view-firstname">Error</span></p>
+                    <p>Last name: <span class="view-label view-lastname">Error</span></p>
+                    <p>E-Mail: <span class="view-label view-email">Error</span></p>
+                    <p>Phone: <span class="view-label view-firstname">Error</span></p>
+                    <div class="buttongroup-editor pl20">
+                        <button class="btn-control btn-close-viewer">Close</button>
+                    </div>
+                </aside>
             </aside>
         </section>
     </main>
@@ -114,15 +122,6 @@
     <p>Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst habe, dass ich sie zuvor an keiner anderen Hochschule und in keinem anderen Studiengang als Prüfungsleistung eingereicht habe und dass ich keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. Alle Stellen der Arbeit, die wörtlich oder sinngemäß aus Veröffentlichungen oder aus anderweitigen fremden Äußerungen entnommen wurden, sind als solche kenntlich gemacht.</p>
     <p>Erklärung ist maschinell erstellt und ohne Unterschrift gültig.</p>
     <button class="about-button">Close</button>
-</div>
-<div class="settings-popup ps30">
-    <h1>Settings</h1>
-    <h2>Dark / Lightmode</h2>
-    <select class="settings-select">
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-    </select>
-    <button class="settings-close-button">Close</button>
 </div>
 </html>
 <script defer src="./build/bundle.js"></script>
