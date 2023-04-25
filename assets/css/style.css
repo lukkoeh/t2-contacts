@@ -342,7 +342,7 @@ body {
     transition: all 250ms ease;
 }
 
-.viewer-shortcuts button:hover{
+.viewer-shortcuts button:hover, .about-button:hover{
     background-color: var(--blueActive);
     color: var(--whiteText);
 }
@@ -591,11 +591,6 @@ About popup
     border: none;
     border-radius: 5px;
     padding: 10px;
-    transition: 250ms all ease;
-}
-
-.about-button:hover {
-    background-color: #1F1F1F;
     transition: 250ms all ease;
 }
 
