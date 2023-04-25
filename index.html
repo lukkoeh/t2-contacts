@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar">
             <div class="nav-list">
-                <a href="#" class="heading">T2-Contacts</a>
+                <img src="assets/images/brand-logo.png" alt="logo" class="logo">
                 <section class="btn-nav-container">
                     <button class="btn-nav btn-settings">Settings</button>
                     <button class="btn-nav btn-about">About</button>
@@ -29,8 +29,10 @@
                 <div class="books-dyn">
                     <button class="element-bookshelf book selected ps20">Default Book</button>
                 </div>
-                <button class="element-bookshelf btn-bookdelete ps20" disabled>Delete book</button>
-                <button class="element-bookshelf btn-bookcreate ps20">Create book</button>
+                <div class="btn-books-contain">
+                    <button class="element-bookshelf btn-books btn-bookcreate ps20">Add</button>
+                    <button class="element-bookshelf btn-books btn-bookdelete ps20" disabled>Delete</button>
+                </div>
             </aside>
         </section>
         <section class="contactlist w25">
@@ -54,20 +56,20 @@
                 <p class="action-create-headline">Create Contact</p>
                 <p class="action-edit-headline invisible">Edit Contact</p>
                 <div class="ce-inputs w100">
-                    <div class="inputgroup w100">
+                    <div class="inputgroup">
                         <label for="fname">First name:</label>
                         <input type="text" id="fname" name="fname" class="form-input" maxlength="50">
                     </div>
-                    <div class="inputgroup w100">
+                    <div class="inputgroup">
                         <label for="lname">Last name:</label>
                         <input type="text" id="lname" name="lname" class="form-input" maxlength="50">
                     </div>
-                    <div class="inputgroup w100">
+                    <div class="inputgroup">
                         <label for="email">E-Mail:</label>
                         <input pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="text" id="email" name="email" class="form-input" maxlength="50">
                         <!-- source of pattern: https://stackoverflow.com/questions/5601647/html5-email-input-pattern-attribute -->
                     </div>
-                    <div class="inputgroup w100">
+                    <div class="inputgroup">
                         <label for="phone">Phone:</label>
                         <input type="text" id="phone" pattern="(\+?\d{1,3}\s?)?\(?\d{2,5}\)?[-.\s]?\d{3,6}[-.\s]?\d{3,6}" name="phone" class="form-input" maxlength="50">
                         <!-- source of pattern: https://stackoverflow.com/questions/8634139/phone-validation-regex -->
@@ -95,11 +97,14 @@
     </main>
 </body>
 <section class="book-naming-popup invisible">
-    <label for="addrname">Please name the new address book.</label>
-    <input type="text" name="addrname" id="addrname" maxlength="50">
-    <div class="popup-buttons">
-        <button class="btn-pp-cancel btn-control">Cancel</button>
-        <button class="btn-pp-save btn-control" disabled>Save</button>
+    <div class="book-naming-popup-overlay"></div>
+    <div class="book-naming-popup-content">
+        <label for="addrname">Please name the new address book.</label>
+        <input type="text" name="addrname" id="addrname" maxlength="50">
+        <div class="popup-buttons">
+            <button class="btn-pp-cancel btn-control">Cancel</button>
+            <button class="btn-pp-save btn-control" disabled>Save</button>
+        </div>
     </div>
 </section>
 <div class="about-popup ps30">
@@ -112,14 +117,8 @@
 </div>
 <div class="settings-popup ps30">
     <h1>Settings</h1>
-    <h2>Color theme</h2>
-    <select>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="red">Red</option>
-    </select>
     <h2>Dark / Lightmode</h2>
-    <select>
+    <select class="settings-select">
         <option value="dark">Dark</option>
         <option value="light">Light</option>
     </select>
