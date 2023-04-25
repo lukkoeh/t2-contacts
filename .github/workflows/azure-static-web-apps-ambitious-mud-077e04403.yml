@@ -21,6 +21,10 @@ jobs:
       - uses: actions/setup-node@v2.5.2
         with:
           node-version: 18
+      - name: Set Timezone
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Europe/Berlin"
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: sed it
