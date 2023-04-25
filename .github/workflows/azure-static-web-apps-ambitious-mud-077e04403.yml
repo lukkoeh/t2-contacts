@@ -21,6 +21,10 @@ jobs:
       - uses: actions/setup-node@v2.5.2
         with:
           node-version: 18
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - name: sed it
+        run: 'sed -i "s/<p class=\"ci-cd-autofill\"><\/p>/<p class=\"ci-cd-autofill\">Build: $NOW<\/p>/g" ./index.html'
       - name: Install deps & build
         run: npm install && npm run build
       - name: Build And Deploy
