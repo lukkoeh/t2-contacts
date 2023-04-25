@@ -603,7 +603,7 @@ About popup
 }
 
 .form-input:invalid {
-    background-color: red;
+    background-color: rgba(255,0,0,0.7);
 }
 
 .contact-contain {
