@@ -245,7 +245,6 @@ export function openViewer(this: any) : void {
                 spans[1].innerText = contactdata.lastname
                 spans[2].innerText = contactdata.email
                 spans[3].innerText = contactdata.phone
-                console.log(contactdata)
                 if (contactdata.email != "") {
                     vieweractionemail.setAttribute("onclick", "window.location.href='mailto:" + contactdata.email + "'")
                     vieweractionemail.removeAttribute("disabled")
@@ -267,10 +266,12 @@ export function closeViewer() : void {
     let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
     let placeholder : HTMLElement | null = document.querySelector(".placeholder")
     let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
-    if (viewer !== null && placeholder !== null && contacteditor !== null) {
+    let btncloseview : HTMLDivElement | null = document.querySelector(".buttongroup-close-view")
+    if (viewer !== null && placeholder !== null && contacteditor !== null && btncloseview !== null) {
         viewer.classList.add("invisible")
         placeholder.classList.remove("invisible")
         contacteditor.classList.add("invisible")
+        btncloseview.classList.add("invisible")
     }
 }
 
@@ -313,7 +314,6 @@ export function handleContactDrag(this: any, ev : DragEvent) : void {
             if (typeof storage !== "boolean") {
                 let key: string = storage.innerText
                 let obj : {cid: string[], sk: string} = {cid: ids, sk: key}
-                console.log(obj)
                 ev.dataTransfer.setData("text/plain", JSON.stringify(obj))
             }
         }
