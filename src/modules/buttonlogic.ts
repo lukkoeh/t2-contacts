@@ -5,23 +5,32 @@ If there is no special need to keep the functions inside the events module, they
 import {abDeletionHook, getSelectedItem, printJsonAb, restoreReactivityAb} from "./reactivity";
 import {createContact, deleteAddressbookByKey, deleteContact, fixIds, getContactById} from "./storage";
 import {Contact} from "./structs";
+import {
+    actioncall, actionemail,
+    btncloseviewer, btncloseviewwrapper,
+    btndeletebook,
+    btnsavecontact, btnsaveedit,
+    containercontacts,
+    inputformgroup, inputviewerlabels, otherheadlinecreate, otherheadlineedit, otherheadlineview, viewerabout,
+    viewereditcontact,
+    viewernamingbooks, viewerplaceholder, viewershowcontact
+} from "./static-elements";
 
 /*
 A function that opens up the Addressbook creation dialogue
  */
-export function openAbPopUp() : void {
-    const popup : HTMLDivElement | null = document.querySelector(".book-naming-popup")
-    if (popup !== null) {
-        popup.classList.remove("invisible");
+export function openAbPopUp(): void {
+    if (viewernamingbooks !== null) {
+        viewernamingbooks.classList.remove("invisible");
     }
 }
+
 /*
 The respective function to close the popup
  */
-export function closeAbPopUp() : void {
-    const popup : HTMLDivElement | null = document.querySelector(".book-naming-popup")
-    if (popup !== null) {
-        popup.classList.add("invisible");
+export function closeAbPopUp(): void {
+    if (viewernamingbooks !== null) {
+        viewernamingbooks.classList.add("invisible");
     }
 }
 
@@ -29,16 +38,15 @@ export function closeAbPopUp() : void {
 This function handles the selection process. Essentially, the clicked item assigns itself as selected
 and removes all other instances of the selected class from other items.
  */
-export function handleBookSelect(this : any) : void { /* Any is used because of this not being typed. */
+export function handleBookSelect(this: any): void { /* Any is used because of this not being typed. */
     this.classList.add("selected")
     printJsonAb(this.innerText);
-    let btdel : HTMLButtonElement | null = document.querySelector(".btn-bookdelete")
-    if (btdel !== null) {
-        btdel.disabled = false;
+    if (btndeletebook !== null) {
+        btndeletebook.disabled = false;
     }
-    let elements : NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".book")
+    let elements: NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".book")
     if (elements !== null) {
-        for (let i = 0; i<elements.length; i++) {
+        for (let i: number = 0; i < elements.length; i++) {
             if (elements[i] !== this) {
                 elements[i].classList.remove("selected")
             }
@@ -51,10 +59,10 @@ A function that deletes the book that is currently selected by the user. It util
 getSelected() function to find the correct entry and then calls the storage management
 to finally delete the entry via the localStorage API
  */
-export function deleteSelectedBook(this: any) : void { //any = instance of delete button
-    let book2del : HTMLButtonElement | boolean = getSelectedItem()
+export function deleteSelectedBook(this: any): void { //any = instance of delete button
+    let book2del: HTMLButtonElement | boolean = getSelectedItem()
     if (typeof book2del !== "boolean") {
-        let key : string = book2del.innerHTML;
+        let key: string = book2del.innerHTML;
         deleteAddressbookByKey(key);
         if (book2del.parentNode !== null) {
             book2del.parentNode.removeChild(book2del); //It quite literally deletes itself XD
@@ -63,78 +71,68 @@ export function deleteSelectedBook(this: any) : void { //any = instance of delet
             this.disabled = true;
         }
         abDeletionHook();
-    }
-    else {
+    } else {
         console.error("There was an error while finding the correct book, you may reselect or reload.")
     }
 }
+
 /*
 This function allows one to print a contact into the contacts-view, without implementing the logic multiple times
 But, it only takes a Contact Struct.
  */
-export function spawnContact(print : Contact) : void {
-    const container : HTMLElement | null = document.querySelector(".contact-contain")
-    if (container !== null) {
-        let element : HTMLElement = document.createElement('aside')
+export function spawnContact(print: Contact): void {
+    if (containercontacts !== null) {
+        let element: HTMLElement = document.createElement('aside')
         element.setAttribute("draggable", "true")
         element.setAttribute("contactid", print.id.toString())
         element.classList.add("contact-item")
         element.classList.add("ps30")
-        let innerp : HTMLParagraphElement = document.createElement("p")
+        let innerp: HTMLParagraphElement = document.createElement("p")
         innerp.innerText = print.firstname + " " + print.lastname
         element.appendChild(innerp)
-        let innerp2 : HTMLParagraphElement = document.createElement("p")
+        let innerp2: HTMLParagraphElement = document.createElement("p")
         if (print.email !== "") {
             innerp2.innerText = print.email
         } else {
             innerp2.innerText = print.phone
         }
         element.appendChild(innerp2)
-        container.appendChild(element)
+        containercontacts.appendChild(element)
     }
 }
+
 /*
 Changes the visibility of the contact creation / edit form and in return hides all other
 forms from the edit area
  */
-export function openCreationDialog() : void {
-    let dialog : HTMLElement | null = document.querySelector(".contact-editor");
-    let placeholder : HTMLElement | null = document.querySelector(".placeholder");
-    let headlinecreate : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
-    let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-edit-headline")
-    let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
-    let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
-    let viewerbt : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
-    let inputs : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
-    if (inputs !== null) {
-        for (let i : number = 0; i< inputs.length; i++) {
-            inputs[i].value = "";
+export function openCreationDialog(): void {
+    if (inputformgroup !== null) {
+        for (let i: number = 0; i < inputformgroup.length; i++) {
+            inputformgroup[i].value = "";
         }
     }
-    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && oldsvbtn !== null && editsvbtn !== null && viewerbt !== null) {
-        viewerbt.classList.add("invisible")
-        placeholder.classList.add("invisible")
-        dialog.classList.remove("invisible")
-        headlineedit.classList.add("invisible")
-        headlinecreate.classList.remove("invisible")
-        oldsvbtn.classList.remove("invisible")
-        editsvbtn.classList.add("invisible")
+    if (viewereditcontact !== null && viewerplaceholder !== null && otherheadlinecreate !== null && otherheadlineedit !== null && btnsavecontact !== null && btnsaveedit !== null && btncloseviewer !== null) {
+        btncloseviewer.classList.add("invisible")
+        viewerplaceholder.classList.add("invisible")
+        viewereditcontact.classList.remove("invisible")
+        otherheadlineedit.classList.add("invisible")
+        otherheadlinecreate.classList.remove("invisible")
+        btnsavecontact.classList.remove("invisible")
+        btnsaveedit.classList.add("invisible")
     }
 }
+
 /*
 Function to be used to hide the edit or create form respectively, does NOT modify
 the headlines. Re-enables the placeholder
  */
-export function closeCreationDialog() : void {
-    let dialog : HTMLElement | null = document.querySelector(".contact-editor")
-    let placeholder : HTMLElement | null = document.querySelector(".placeholder")
-    let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
-    if (dialog !== null && placeholder !== null && inputgroup !== null) {
+export function closeCreationDialog(): void {
+    if (viewereditcontact !== null && viewerplaceholder !== null && inputformgroup !== null) {
         //first, switch the invisible class
-        dialog.classList.add("invisible")
-        placeholder.classList.remove("invisible")
-        for (let i : number = 0; i<inputgroup.length; i++) {
-            inputgroup[i].value = ""; //clear values
+        viewereditcontact.classList.add("invisible")
+        viewerplaceholder.classList.remove("invisible")
+        for (let i: number = 0; i < inputformgroup.length; i++) {
+            inputformgroup[i].value = ""; //clear values
         }
     }
 
@@ -145,15 +143,15 @@ We need to prevent the fixIds() function from executing until all storage operat
 That is why we toggle it here instead of in the storage module itself. We create a list of all items
 that should be deleted, then we cycle through, extract the IDs and delete the corresponding entries.
  */
-export function deleteSelectedContacts(this: any) : void {
-    let selectedab : HTMLButtonElement | null = document.querySelector(".selected")
+export function deleteSelectedContacts(this: any): void {
+    let selectedab: HTMLButtonElement | null = document.querySelector(".selected")
     if (selectedab !== null) {
-        let storagekey : string = selectedab.innerText
-        let it2d : NodeListOf<HTMLElement> | null = document.querySelectorAll(".multiselect")
-        for (let i : number = 0; i< it2d.length; i++) {
-            let idstring : string | null = it2d[i].getAttribute("contactid")
+        let storagekey: string = selectedab.innerText
+        let it2d: NodeListOf<HTMLElement> | null = document.querySelectorAll(".multiselect")
+        for (let i: number = 0; i < it2d.length; i++) {
+            let idstring: string | null = it2d[i].getAttribute("contactid")
             if (idstring !== null) {
-                let newid : number = Number.parseInt(idstring)
+                let newid: number = Number.parseInt(idstring)
                 deleteContact(newid, storagekey)
                 closeViewer()
             }
@@ -166,46 +164,36 @@ export function deleteSelectedContacts(this: any) : void {
 /*
 Open up the editor and disable anything else.
 */
-export function openEditDialog() : void {
-    let dialog : HTMLElement | null = document.querySelector(".contact-editor");
-    let placeholder : HTMLElement | null = document.querySelector(".placeholder");
-    let headlinecreate : HTMLParagraphElement | null = document.querySelector(".action-create-headline")
-    let headlineedit : HTMLParagraphElement | null = document.querySelector(".action-edit-headline")
-    let editsvbtn : HTMLButtonElement | null = document.querySelector(".btn-edit-save")
-    let oldsvbtn : HTMLButtonElement | null = document.querySelector(".btn-save")
-    let viewclosebtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
-    let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
-    if (editsvbtn !== null && oldsvbtn !== null && viewclosebtn !== null) {
-        editsvbtn.classList.remove("invisible")
-        oldsvbtn.classList.add("invisible")
-        viewclosebtn.classList.add("invisible")
+export function openEditDialog(): void {
+    if (btnsaveedit !== null && btnsavecontact !== null && btncloseviewer !== null) {
+        btnsaveedit.classList.remove("invisible")
+        btnsavecontact.classList.add("invisible")
+        btncloseviewer.classList.add("invisible")
     }
-    if (dialog !== null && placeholder !== null && headlinecreate !== null && headlineedit !== null && viewer !== null) {
-        placeholder.classList.add("invisible")
-        dialog.classList.remove("invisible")
-        headlineedit.classList.remove("invisible")
-        headlinecreate.classList.add("invisible")
-        viewer.classList.add("invisible")
+    if (viewereditcontact !== null && viewerplaceholder !== null && otherheadlinecreate !== null && otherheadlineedit !== null && viewershowcontact !== null) {
+        viewerplaceholder.classList.add("invisible")
+        viewereditcontact.classList.remove("invisible")
+        otherheadlineedit.classList.remove("invisible")
+        otherheadlinecreate.classList.add("invisible")
+        viewershowcontact.classList.add("invisible")
     }
-    let inputgroup : NodeListOf<HTMLInputElement> | null = document.querySelectorAll(".form-input")
-    let selectedcontact : HTMLElement | null = document.querySelector(".multiselect") //only first element
-    let selectedab : HTMLButtonElement | null = document.querySelector(".selected")
+    const selectedcontact: HTMLElement | null = document.querySelector(".multiselect") //only first element
+    const selectedab: HTMLButtonElement | null = document.querySelector(".selected")
     if (selectedcontact !== null && selectedab !== null) {
-        let storagekey : string = selectedab.innerText;
-        let contactid : string | null = selectedcontact.getAttribute("contactid")
+        let storagekey: string = selectedab.innerText;
+        let contactid: string | null = selectedcontact.getAttribute("contactid")
         if (contactid !== null) {
-            let finalid : number = Number.parseInt(contactid)
-            let contactitem : Contact | boolean = getContactById(finalid, storagekey)
+            let finalid: number = Number.parseInt(contactid)
+            let contactitem: Contact | boolean = getContactById(finalid, storagekey)
             if (typeof contactitem === "boolean") {
                 console.error("There was an error while getting the contact to prefill it into the form. Editing might not be possible")
-            }
-            else {
-                if (inputgroup !== null && dialog !== null) {
-                    inputgroup[0].value = contactitem.firstname
-                    inputgroup[1].value = contactitem.lastname
-                    inputgroup[2].value = contactitem.email
-                    inputgroup[3].value = contactitem.phone
-                    dialog.setAttribute("currentedit", contactitem.id.toString())
+            } else {
+                if (inputformgroup !== null && viewereditcontact !== null) {
+                    inputformgroup[0].value = contactitem.firstname
+                    inputformgroup[1].value = contactitem.lastname
+                    inputformgroup[2].value = contactitem.email
+                    inputformgroup[3].value = contactitem.phone
+                    viewereditcontact.setAttribute("currentedit", contactitem.id.toString())
                 }
             }
         }
@@ -215,105 +203,92 @@ export function openEditDialog() : void {
 /*
 View contact doubleclick action
  */
-export function openViewer(this: any) : void {
-    let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
-    let placeholder : HTMLElement | null = document.querySelector(".placeholder")
-    let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
-    let viewerclosebtn : HTMLButtonElement | null = document.querySelector(".btn-close-viewer")
-    let viewerhd : HTMLSpanElement | null = document.querySelector(".view-headline")
-    let vieweractioncall : HTMLButtonElement | null  = document.querySelector(".viewer-shortcut-call")
-    let vieweractionemail : HTMLButtonElement | null = document.querySelector(".viewer-shortcut-email")
-    if (viewer !== null && placeholder !== null && contacteditor !== null && viewerclosebtn !== null) {
-        viewer.classList.remove("invisible")
-        viewerclosebtn.classList.remove("invisible")
-        placeholder.classList.add("invisible")
-        contacteditor.classList.add("invisible")
+export function openViewer(this: any): void {
+    if (viewershowcontact !== null && viewerplaceholder !== null && viewereditcontact !== null && btncloseviewer !== null) {
+        viewershowcontact.classList.remove("invisible")
+        btncloseviewer.classList.remove("invisible")
+        viewerplaceholder.classList.add("invisible")
+        viewereditcontact.classList.add("invisible")
     }
-    let storage : HTMLButtonElement | boolean = getSelectedItem();
+    let storage: HTMLButtonElement | boolean = getSelectedItem();
     if (typeof storage === "boolean") {
         console.error("Error while getting selected item for viewer")
     } else {
-        let idstring : string | null = this.getAttribute("contactid")
-        let storagekey : string = storage.innerText
+        let idstring: string | null = this.getAttribute("contactid")
+        let storagekey: string = storage.innerText
         if (idstring !== null && storagekey !== null) {
-            let id : number = Number.parseInt(idstring)
-            let contactdata : Contact | boolean = getContactById(id,storagekey)
-            let spans : NodeListOf<HTMLSpanElement> | null = document.querySelectorAll(".view-label")
-            if (spans !== null && typeof contactdata !== "boolean" && viewerhd !== null && vieweractioncall !== null && vieweractionemail !== null) {
-                viewerhd.innerText = contactdata.firstname + " " + contactdata.lastname
-                spans[0].innerText = contactdata.firstname
-                spans[1].innerText = contactdata.lastname
-                spans[2].innerText = contactdata.email
-                spans[3].innerText = contactdata.phone
+            let id: number = Number.parseInt(idstring)
+            let contactdata: Contact | boolean = getContactById(id, storagekey)
+            if (inputviewerlabels !== null && typeof contactdata !== "boolean" && otherheadlineview !== null && actioncall !== null && actionemail !== null) {
+                otherheadlineview.innerText = contactdata.firstname + " " + contactdata.lastname
+                inputviewerlabels[0].innerText = contactdata.firstname
+                inputviewerlabels[1].innerText = contactdata.lastname
+                inputviewerlabels[2].innerText = contactdata.email
+                inputviewerlabels[3].innerText = contactdata.phone
                 if (contactdata.email != "") {
-                    vieweractionemail.setAttribute("onclick", "window.location.href='mailto:" + contactdata.email + "'")
-                    vieweractionemail.removeAttribute("disabled")
+                    actionemail.setAttribute("onclick", "window.location.href='mailto:" + contactdata.email + "'")
+                    actionemail.removeAttribute("disabled")
                 } else {
-                    vieweractionemail.setAttribute("disabled", "true")
+                    actionemail.setAttribute("disabled", "true")
                 }
                 if (contactdata.phone != "") {
-                    vieweractioncall.setAttribute("href", "window.location.href='phone:" + contactdata.phone + "'")
-                    vieweractioncall.removeAttribute("disabled")
+                    actioncall.setAttribute("href", "window.location.href='phone:" + contactdata.phone + "'")
+                    actioncall.removeAttribute("disabled")
                 } else {
-                    vieweractioncall.setAttribute("disabled", "true")
+                    actioncall.setAttribute("disabled", "true")
                 }
             }
         }
     }
 }
 
-export function closeViewer() : void {
-    let viewer : HTMLElement | null = document.querySelector(".contact-viewer")
-    let placeholder : HTMLElement | null = document.querySelector(".placeholder")
-    let contacteditor : HTMLElement | null = document.querySelector(".contact-editor")
-    let btncloseview : HTMLDivElement | null = document.querySelector(".buttongroup-close-view")
-    if (viewer !== null && placeholder !== null && contacteditor !== null && btncloseview !== null) {
-        viewer.classList.add("invisible")
-        placeholder.classList.remove("invisible")
-        contacteditor.classList.add("invisible")
-        btncloseview.classList.add("invisible")
+export function closeViewer(): void {
+    if (viewershowcontact !== null && viewerplaceholder !== null && viewereditcontact !== null && btncloseviewwrapper !== null) {
+        viewershowcontact.classList.add("invisible")
+        viewerplaceholder.classList.remove("invisible")
+        viewereditcontact.classList.add("invisible")
+        btncloseviewwrapper.classList.add("invisible")
     }
 }
 
 /*
 Create a function to show the About PopUp
  */
-export function openAboutPopUp() : void {
-    let popup : HTMLDivElement | null = document.querySelector(".about-popup")
-    if (popup !== null) {
-        popup.style.right = "0"
+export function openAboutPopUp(): void {
+    if (viewerabout !== null) {
+        viewerabout.style.right = "0"
     }
 }
+
 /*
 Create a function to hide the popup
  */
-export function closeAboutPopUp() : void {
-    let popup : HTMLDivElement | null = document.querySelector(".about-popup")
-    if (popup !== null) {
-        popup.style.right = "-30%"
+export function closeAboutPopUp(): void {
+    if (viewerabout !== null) {
+        viewerabout.style.right = "-30%"
     }
 }
 
 /*
 Create a function to handle drag and drop feature
  */
-export function handleContactDrag(this: any, ev : DragEvent) : void {
+export function handleContactDrag(this: any, ev: DragEvent): void {
     this.classList.add("multiselect")
-    let mselements : NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".multiselect")
-    let ids : string[] = []
+    let mselements: NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".multiselect")
+    let ids: string[] = []
     if (mselements !== null) {
-        for (let i : number=0; i<mselements.length; i++) {
-            let idtmp : string | null = mselements[i].getAttribute("contactid")
+        for (let i: number = 0; i < mselements.length; i++) {
+            let idtmp: string | null = mselements[i].getAttribute("contactid")
             if (idtmp !== null) {
                 ids.push(idtmp)
             }
         }
         if (ev.dataTransfer !== null) {
             ev.dataTransfer.dropEffect = "move"
-            let storage : boolean | HTMLButtonElement = getSelectedItem()
+            let storage: boolean | HTMLButtonElement = getSelectedItem()
             if (typeof storage !== "boolean") {
                 let key: string = storage.innerText
-                let obj : {cid: string[], sk: string} = {cid: ids, sk: key}
+                let obj: { cid: string[], sk: string } = {cid: ids, sk: key}
                 ev.dataTransfer.setData("text/plain", JSON.stringify(obj))
             }
         }
@@ -323,16 +298,16 @@ export function handleContactDrag(this: any, ev : DragEvent) : void {
 /*
 see above
  */
-export function handleContactDrop(this: any, ev: DragEvent) : void {
+export function handleContactDrop(this: any, ev: DragEvent): void {
     ev.preventDefault()
     if (ev.dataTransfer !== null) {
-        const data : string = ev.dataTransfer.getData("text/plain")
-        let result : {cid: string[], sk: string} = JSON.parse(data)
-        let newstorage : string = this.innerText;
+        const data: string = ev.dataTransfer.getData("text/plain")
+        let result: { cid: string[], sk: string } = JSON.parse(data)
+        let newstorage: string = this.innerText;
         // perform transfer
-        for (let i: number = 0; i<result.cid.length; i++) {
-            let contacttmp : Contact | boolean = getContactById(Number.parseInt(result.cid[i]), result.sk)
-            if (typeof contacttmp !== "boolean"){
+        for (let i: number = 0; i < result.cid.length; i++) {
+            let contacttmp: Contact | boolean = getContactById(Number.parseInt(result.cid[i]), result.sk)
+            if (typeof contacttmp !== "boolean") {
                 deleteContact(contacttmp.id, result.sk)
                 createContact(contacttmp, newstorage)
             }
