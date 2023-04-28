@@ -37,7 +37,12 @@ export function restoreReactivityAb(): void {
     for (let i: number = 0; i < books.length; i++) {
         books[i].addEventListener("click", handleBookSelect)
         books[i].addEventListener("drop", handleContactDrop)
-        books[i].addEventListener("dragover", (ev) => {
+        books[i].addEventListener("dragover", (ev: DragEvent): void => {
+            (ev.target as HTMLButtonElement).classList.add("draggedover");
+            ev.preventDefault()
+        })
+        books[i].addEventListener("dragleave", (ev: DragEvent): void => {
+            (ev.target as HTMLButtonElement).classList.remove("draggedover");
             ev.preventDefault()
         })
     }

@@ -314,4 +314,5 @@ export function handleContactDrop(this: any, ev: DragEvent): void {
         }
         printJsonAb(result.sk)
     }
+    (ev.target as HTMLButtonElement).classList.remove("draggedover")
 }

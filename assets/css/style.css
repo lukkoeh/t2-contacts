@@ -616,3 +616,8 @@ About popup
 .btn-control:disabled:hover {
     background-color: var(--blueDisabled);
 }
+
+.draggedover {
+    background-color: var(--blueActive) !important;
+    color: var(--whiteText);
+}
