@@ -2,106 +2,108 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Kontakte</title>
     <link type="text/css" rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="nav-list">
-                <img src="assets/images/brand-logo.png" alt="logo" class="logo">
-                <section class="btn-nav-container">
-                    <button class="btn-nav btn-about">About</button>
-                </section>
+<header>
+    <nav class="navbar">
+        <div class="nav-list">
+            <img src="assets/images/brand-logo.png" alt="logo" class="logo">
+            <section class="btn-nav-container">
+                <button class="btn-nav btn-about">About</button>
+            </section>
+        </div>
+    </nav>
+</header>
+<main class="container">
+    <section class="sidebar w15">
+        <aside class="contact-controls ps20 bookshelf">
+            <h3>Address Bookshelf</h3>
+        </aside>
+        <aside class="books">
+            <div class="books-dyn">
+                <button class="element-bookshelf book selected ps20">Default Book</button>
             </div>
-        </nav>
-    </header>
-    <main class="container">
-        <section class="sidebar w15">
-            <aside class="contact-controls ps20 bookshelf">
-                <h3>Address Bookshelf</h3>
-            </aside>
-            <aside class="books">
-                <div class="books-dyn">
-                    <button class="element-bookshelf book selected ps20">Default Book</button>
-                </div>
-                <div class="btn-books-contain">
-                    <button class="element-bookshelf btn-books btn-bookcreate ps20">Add</button>
-                    <button class="element-bookshelf btn-books btn-bookdelete ps20" disabled>Delete</button>
-                </div>
-            </aside>
-        </section>
-        <section class="contactlist w25">
-            <aside class="contact-controls w25 ps20 sticktop">
-                <button class="btn-control btn-create-contact">Create</button>
-                <button class="btn-control btn-edit-contact" disabled>Edit</button>
-                <button class="btn-control btn-delete-contact" disabled>Delete</button>
-            </aside>
-            <div class="contact-contain">
-                <aside class="contact-item ps30 invisible">
-                    <p>Lukas Köhler</p>
-                    <p>+4915120959731</p>
-                </aside>
+            <div class="btn-books-contain">
+                <button class="element-bookshelf btn-books btn-bookcreate ps20">Add</button>
+                <button class="element-bookshelf btn-books btn-bookdelete ps20" disabled>Delete</button>
             </div>
-        </section>
-        <section class="editarea w60">
-            <aside class="placeholder w100 ps20">
-                <p>Open or create a Contact to start</p>
+        </aside>
+    </section>
+    <section class="contactlist w25">
+        <aside class="contact-controls w25 ps20 sticktop">
+            <button class="btn-control btn-create-contact">Create</button>
+            <button class="btn-control btn-edit-contact" disabled>Edit</button>
+            <button class="btn-control btn-delete-contact" disabled>Delete</button>
+        </aside>
+        <div class="contact-contain">
+            <aside class="contact-item ps30 invisible">
+                <p>Lukas Köhler</p>
+                <p>+4915120959731</p>
             </aside>
-            <aside class="contact-editor w100 p20 invisible">
-                <aside class="contact-controls w25 ps20 sticktop-viewer">
+        </div>
+    </section>
+    <section class="editarea w60">
+        <aside class="placeholder w100 ps20">
+            <p>Open or create a Contact to start</p>
+        </aside>
+        <aside class="contact-editor w100 p20 invisible">
+            <aside class="contact-controls w25 ps20 sticktop-viewer">
                 <p class="action-create-headline">Create Contact</p>
                 <p class="action-edit-headline invisible">Edit Contact</p>
-                </aside>
-                <div class="ce-inputs w100">
-                    <div class="inputgroup">
-                        <label for="fname">First name:</label>
-                        <input type="text" id="fname" name="fname" class="form-input" maxlength="50">
-                    </div>
-                    <div class="inputgroup">
-                        <label for="lname">Last name:</label>
-                        <input type="text" id="lname" name="lname" class="form-input" maxlength="50">
-                    </div>
-                    <div class="inputgroup">
-                        <label for="email">E-Mail:</label>
-                        <input pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="text" id="email" name="email" class="form-input" maxlength="50">
-                        <!-- source of pattern: https://stackoverflow.com/questions/5601647/html5-email-input-pattern-attribute -->
-                    </div>
-                    <div class="inputgroup">
-                        <label for="phone">Phone:</label>
-                        <input type="text" id="phone" pattern="(\+?\d{1,3}\s?)?\(?\d{2,5}\)?[-.\s]?\d{3,6}[-.\s]?\d{3,6}" name="phone" class="form-input" maxlength="50">
-                        <!-- source of pattern: https://stackoverflow.com/questions/8634139/phone-validation-regex -->
-                    </div>
+            </aside>
+            <div class="ce-inputs w100">
+                <div class="inputgroup">
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" name="fname" class="form-input" maxlength="50">
                 </div>
-                <div class="buttongroup-editor pl20">
-                    <button class="btn-cancel btn-control">Cancel</button>
-                    <button class="btn-save btn-control" disabled>Save</button>
-                    <button class="btn-edit-save btn-control" disabled>Save</button>
+                <div class="inputgroup">
+                    <label for="lname">Last name:</label>
+                    <input type="text" id="lname" name="lname" class="form-input" maxlength="50">
+                </div>
+                <div class="inputgroup">
+                    <label for="email">E-Mail:</label>
+                    <input pattern="[^@\s]+@[^@\s]+\.[^@\s]+" type="text" id="email" name="email" class="form-input"
+                           maxlength="50">
+                    <!-- source of pattern: https://stackoverflow.com/questions/5601647/html5-email-input-pattern-attribute -->
+                </div>
+                <div class="inputgroup">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" pattern="(\+?\d{1,3}\s?)?\(?\d{2,5}\)?[-.\s]?\d{3,6}[-.\s]?\d{3,6}"
+                           name="phone" class="form-input" maxlength="50">
+                    <!-- source of pattern: https://stackoverflow.com/questions/8634139/phone-validation-regex -->
+                </div>
+            </div>
+            <div class="buttongroup-editor pl20">
+                <button class="btn-cancel btn-control">Cancel</button>
+                <button class="btn-save btn-control" disabled>Save</button>
+                <button class="btn-edit-save btn-control" disabled>Save</button>
+            </div>
+        </aside>
+        <aside class="w100 p20 invisible contact-viewer">
+            <aside class="contact-controls w25 ps20 sticktop-viewer sticktop-with-controls">
+                <h2>View contact: <span class="view-headline"></span></h2>
+            </aside>
+            <div class="viewer-shortcuts">
+                <button class="viewer-shortcut-btn viewer-shortcut-call" disabled>Call</button>
+                <button class="viewer-shortcut-btn viewer-shortcut-email" disabled>E-Mail</button>
+            </div>
+            <aside class="contact-viewer-content">
+                <p>First name: <span class="view-label view-firstname">Error</span></p>
+                <p>Last name: <span class="view-label view-lastname">Error</span></p>
+                <p>E-Mail: <span class="view-label view-email">Error</span></p>
+                <p>Phone: <span class="view-label view-firstname">Error</span></p>
+                <div class="buttongroup-editor pl20 buttongroup-close-view">
+                    <button class="btn-control btn-close-viewer">Close</button>
                 </div>
             </aside>
-            <aside class="w100 p20 invisible contact-viewer">
-                <aside class="contact-controls w25 ps20 sticktop-viewer sticktop-with-controls">
-                    <h2>View contact: <span class="view-headline"></span></h2>
-                </aside>
-                <div class="viewer-shortcuts">
-                    <button class="viewer-shortcut-btn viewer-shortcut-call" disabled>Call</button>
-                    <button class="viewer-shortcut-btn viewer-shortcut-email" disabled>E-Mail</button>
-                </div>
-                <aside class="contact-viewer-content">
-                    <p>First name: <span class="view-label view-firstname">Error</span></p>
-                    <p>Last name: <span class="view-label view-lastname">Error</span></p>
-                    <p>E-Mail: <span class="view-label view-email">Error</span></p>
-                    <p>Phone: <span class="view-label view-firstname">Error</span></p>
-                    <div class="buttongroup-editor pl20 buttongroup-close-view">
-                        <button class="btn-control btn-close-viewer">Close</button>
-                    </div>
-                </aside>
-            </aside>
-        </section>
-    </main>
+        </aside>
+    </section>
+</main>
 </body>
 <section class="book-naming-popup invisible">
     <div class="book-naming-popup-overlay"></div>
@@ -117,8 +119,13 @@
 <div class="about-popup ps30">
     <h1>About this App</h1>
     <h2>Contacthub - made by <a href="https://github.com/lukkoeh">lukkoeh</a></h2>
-    <p>This app is published under the <a href="https://unlicense.org/">UNLICENSE</a>. Any use, modification, publishing, literally everything, is permitted.</p>
-    <p>Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst habe, dass ich sie zuvor an keiner anderen Hochschule und in keinem anderen Studiengang als Prüfungsleistung eingereicht habe und dass ich keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. Alle Stellen der Arbeit, die wörtlich oder sinngemäß aus Veröffentlichungen oder aus anderweitigen fremden Äußerungen entnommen wurden, sind als solche kenntlich gemacht.</p>
+    <p>This app is published under the <a href="https://unlicense.org/">UNLICENSE</a>. Any use, modification,
+        publishing, literally everything, is permitted.</p>
+    <p>Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig verfasst habe, dass ich sie zuvor an keiner
+        anderen Hochschule und in keinem anderen Studiengang als Prüfungsleistung eingereicht habe und dass ich keine
+        anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. Alle Stellen der Arbeit, die wörtlich oder
+        sinngemäß aus Veröffentlichungen oder aus anderweitigen fremden Äußerungen entnommen wurden, sind als solche
+        kenntlich gemacht.</p>
     <p>Erklärung ist maschinell erstellt und ohne Unterschrift gültig.</p>
     <p class="ci-cd-autofill"></p>
     <button class="about-button">Close</button>

@@ -17,8 +17,8 @@ import {btndeletecontact, btneditcontact, containerbooks, containercontacts} fro
 export function updateBookShelf(): void {
     if (containerbooks !== null) {
         containerbooks.innerHTML = "";
-        for (let i = 0; i < window.localStorage.length; i++) {
-            let element = document.createElement('div')
+        for (let i : number = 0; i < window.localStorage.length; i++) {
+            let element : HTMLDivElement = document.createElement('div')
             element.innerHTML = '<button class="element-bookshelf book ps20">' + localStorage.key(i) + "</button>"
             containerbooks.appendChild(element)
         }
