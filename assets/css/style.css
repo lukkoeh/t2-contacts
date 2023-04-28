@@ -671,4 +671,17 @@ About popup
     .btn-save,.btn-edit-save {
         border-left: 1px solid var(--darkInputs);
     }
+
+    .book-naming-popup-content {
+        background-color: var(--darkBg);
+    }
+
+    .book-naming-popup-content input {
+        background-color: var(--darkElements);
+        color: var(--whiteText);
+    }
+
+    .book-naming-popup-overlay {
+        background-color: var(--darkElements);
+    }
 }
