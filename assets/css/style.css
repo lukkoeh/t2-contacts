@@ -327,9 +327,13 @@ body {
     transition: all 250ms ease;
 }
 
-.viewer-shortcuts button:hover, .about-button:hover {
-    background-color: var(--blueActive);
+.viewer-shortcuts button:hover {
+    background-color: var(--blueActive) !important;
     color: var(--whiteText);
+}
+
+.about-button:hover {
+    background-color: var(--blueHover);
 }
 
 .viewer-shortcuts button:disabled {
@@ -535,7 +539,7 @@ a {
 }
 
 .selected, .multiselect {
-    background-color: var(--blueDisabled);
+    background-color: var(--blueDisabled) !important;
 }
 
 .multiselect:before {
@@ -582,8 +586,8 @@ About popup
 
 .about-button {
     width: 100%;
-    background-color: var(--controlsBg);
-    color: var(--blackText);
+    background-color: var(--blueActive);
+    color: var(--whiteText);
     border: none;
     border-radius: 5px;
     padding: 10px;
@@ -608,4 +612,63 @@ About popup
 .draggedover {
     background-color: var(--blueActive) !important;
     color: var(--whiteText);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --darkBg: #111;
+        --darkElements: #222;
+        --darkControls: #333;
+        --blueActive: #cc6d2c;
+        --blueDisabled: rgba(230,122,50,0.25);
+        --blueHover: #e67a32;
+        --darkInputs: #444;
+    }
+    body {
+        background-color: var(--darkBg);
+    }
+    .sidebar,.contactlist,.editarea, .contact-viewer, .about-popup, .contact-editor, .placeholder, .navbar, .nav-list {
+        background-color: var(--darkElements);
+        box-shadow: 3px 3px 6px #0F0F0F;
+    }
+    .btn-bookdelete, .btn-bookcreate {
+        box-shadow: 3px 3px 6px #0F0F0F;
+    }
+    .contact-controls {
+        background-color: var(--darkControls);
+        box-shadow: 3px 3px 6px #0f0f0f;
+    }
+    .placeholder p {
+        color: var(--whiteText);
+    }
+    .nav-list img {
+        filter: invert(100%);
+    }
+    p, a, h1, h2, h3, h4, h5, button, label {
+        color: white;
+    }
+    .viewer-shortcut-call, .viewer-shortcut-email {
+        background-color: var(--darkControls) !important;
+        color: var(--whiteText);
+    }
+    .contact-item, .book {
+        background-color: var(--darkElements);
+        box-shadow: 3px 3px 6px #0F0F0F;
+    }
+
+    .contact-item:before {
+        background-color: var(--darkInputs);
+    }
+
+    .ce-inputs {
+        background-color: var(--darkElements);
+    }
+
+    .inputgroup input {
+        background-color: var(--darkInputs);
+        color: var(--whiteText);
+    }
+    .btn-save,.btn-edit-save {
+        border-left: 1px solid var(--darkInputs);
+    }
 }
