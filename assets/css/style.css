@@ -688,5 +688,10 @@ About popup
     .viewer-shortcut-call:disabled, .viewer-shortcut-email:disabled {
         background-color: var(--blueDisabled) !important;
         border: 1px solid var(--blueDisabled) !important;
+        color: #aaaaaa !important;
+    }
+    .viewer-shortcut-call:disabled:hover, .viewer-shortcut-email:disabled:hover {
+        background-color: var(--blueDisabled) !important;
+        border: 1px solid var(--blueDisabled) !important;
     }
 }
