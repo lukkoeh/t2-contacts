@@ -65,7 +65,7 @@ A function to get the currently selected item.
  */
 export function getSelectedItem(): HTMLButtonElement | boolean {
     let elements: NodeListOf<HTMLButtonElement> | null = document.querySelectorAll(".book");
-    for (let i = 0; i < elements.length; i++) {
+    for (let i : number = 0; i < elements.length; i++) {
         if (elements[i].classList.contains("selected")) {
             return elements[i];
         }
