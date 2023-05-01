@@ -111,8 +111,8 @@ export function openCreationDialog(): void {
             inputformgroup[i].value = "";
         }
     }
-    if (viewereditcontact !== null && viewerplaceholder !== null && otherheadlinecreate !== null && otherheadlineedit !== null && btnsavecontact !== null && btnsaveedit !== null && btncloseviewer !== null) {
-        btncloseviewer.classList.add("invisible")
+    if (viewereditcontact !== null && viewerplaceholder !== null && otherheadlinecreate !== null && otherheadlineedit !== null && btnsavecontact !== null && btnsaveedit !== null && btncloseviewwrapper !== null) {
+        btncloseviewwrapper.classList.add("invisible")
         viewerplaceholder.classList.add("invisible")
         viewereditcontact.classList.remove("invisible")
         otherheadlineedit.classList.add("invisible")
@@ -165,10 +165,10 @@ export function deleteSelectedContacts(this: any): void {
 Open up the editor and disable anything else.
 */
 export function openEditDialog(): void {
-    if (btnsaveedit !== null && btnsavecontact !== null && btncloseviewer !== null) {
+    if (btnsaveedit !== null && btnsavecontact !== null && btncloseviewwrapper !== null) {
         btnsaveedit.classList.remove("invisible")
         btnsavecontact.classList.add("invisible")
-        btncloseviewer.classList.add("invisible")
+        btncloseviewwrapper.classList.add("invisible")
     }
     if (viewereditcontact !== null && viewerplaceholder !== null && otherheadlinecreate !== null && otherheadlineedit !== null && viewershowcontact !== null) {
         viewerplaceholder.classList.add("invisible")
@@ -206,7 +206,7 @@ View contact doubleclick action
 export function openViewer(this: any): void {
     if (viewershowcontact !== null && viewerplaceholder !== null && viewereditcontact !== null && btncloseviewer !== null) {
         viewershowcontact.classList.remove("invisible")
-        btncloseviewer.classList.remove("invisible")
+        btncloseviewwrapper?.classList.remove("invisible");
         viewerplaceholder.classList.add("invisible")
         viewereditcontact.classList.add("invisible")
     }
