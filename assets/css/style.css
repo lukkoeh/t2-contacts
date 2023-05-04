@@ -694,4 +694,8 @@ About popup
         background-color: var(--blueDisabled) !important;
         border: 1px solid var(--blueDisabled) !important;
     }
+
+    .multiselect:before {
+        background-color: var(--blueActive) !important;
+    }
 }
