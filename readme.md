@@ -24,7 +24,3 @@ Write any source files in typescript inside the source folder, the main file bei
 Type tsc to javascript
 
 Link your compiled bundle.js into your HTML-Files.
-
-
-## Libraries used
-- MaterializeCSS https://materializecss.com/
